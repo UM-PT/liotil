@@ -9,38 +9,33 @@
 body{
 font-family:Arial, Helvetica, sans-serif;
 background:#f4f6fb;
-text-align:center;
 margin:0;
-padding-top:120px;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.container{
+display:flex;
+align-items:center;
+gap:25px;
 }
 
 .logo{
-width:260px;
-margin-bottom:30px;
+width:120px;
 }
 
-h1{
+.text h1{
+margin:0;
 font-size:48px;
 color:#24325c;
-margin:10px;
 }
 
-p{
+.text p{
+margin:6px 0;
 font-size:20px;
 color:#666;
-margin:8px;
-}
-
-.tagline{
-font-size:22px;
-color:#4a5a7a;
-margin-top:10px;
-}
-
-.footer{
-margin-top:80px;
-font-size:14px;
-color:#888;
 }
 
 </style>
@@ -49,16 +44,16 @@ color:#888;
 
 <body>
 
+<div class="container">
+
 <img src="logo.png" class="logo">
 
+<div class="text">
 <h1>LioTil</h1>
-
-<p class="tagline">AI Tools & Data Systems</p>
-
+<p>AI Tools & Data Systems</p>
 <p>Website im Aufbau</p>
+</div>
 
-<div class="footer">
-© 2026 LioTil
 </div>
 
 </body>
