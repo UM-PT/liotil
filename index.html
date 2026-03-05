@@ -17,32 +17,31 @@ justify-content:center;
 align-items:center;
 }
 
-.main{
+.header{
 display:flex;
 align-items:center;
-gap:40px;
+gap:30px;
 }
 
 .logo{
-width:220px;
+width:320px;
 }
 
-.text h1{
-margin:0;
-font-size:64px;
+.titleblock{
+display:flex;
+flex-direction:column;
+}
+
+.title{
+font-size:72px;
 color:#2c3458;
+margin:0;
 }
 
-.tagline{
-margin-top:8px;
-font-size:24px;
-color:#7a7f8a;
-}
-
-.build{
+.subtitle{
+font-size:28px;
+color:#8a8f98;
 margin-top:10px;
-font-size:20px;
-color:#888;
 }
 
 .footer{
@@ -58,14 +57,13 @@ color:#888;
 
 <body>
 
-<div class="main">
+<div class="header">
 
 <img src="logo.png" class="logo">
 
-<div class="text">
-<h1>LioTil</h1>
-<div class="tagline">AI Tools & Data Systems</div>
-<div class="build">Website im Aufbau</div>
+<div class="titleblock">
+<h1 class="title">LioTil</h1>
+<div class="subtitle">AI Tools & Data Systems</div>
 </div>
 
 </div>
@@ -75,4 +73,5 @@ color:#888;
 </div>
 
 </body>
+
 </html>
