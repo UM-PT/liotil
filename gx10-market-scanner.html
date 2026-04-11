@@ -415,6 +415,85 @@ body{
   opacity:.68;
 }
 
+
+@media (max-width: 700px){
+  body{
+    overflow-y:auto;
+    overflow-x:hidden;
+  }
+
+  .page{
+    min-height:auto;
+    padding:24px 16px 48px;
+  }
+
+  .hero{
+    position:relative;
+    top:auto;
+    left:auto;
+    transform:none;
+    margin-top:24px;
+    z-index:auto;
+  }
+
+  .logo-wrap{
+    width:min(88vw, 420px);
+    max-width:min(88vw, 420px);
+    margin:0 auto;
+  }
+
+  .subpage-content{
+    max-width:420px;
+    margin:28px auto 0;
+    padding:0;
+  }
+
+  .subpage-card{
+    max-width:none;
+    height:auto;
+    min-height:0;
+    padding:0;
+    overflow:visible;
+  }
+
+  .subpage-title{
+    font-size:28px;
+    line-height:1.12;
+  }
+
+  .subpage-subtitle{
+    margin:0 0 22px 0;
+  }
+
+  .subpage-section{
+    margin-top:22px;
+  }
+
+  .subpage-section + .subpage-section{
+    margin-top:26px;
+    padding-top:18px;
+  }
+
+  .subpage-section-title,
+  .subpage-text{
+    max-width:none;
+  }
+
+  .footer-note{
+    position:relative;
+    left:auto;
+    bottom:auto;
+    transform:none;
+    margin:28px 0 12px;
+    font-size:14px;
+    z-index:auto;
+  }
+
+  .footer-links{
+    line-height:1.5;
+  }
+}
+
 </style>
 </head>
 <body>
