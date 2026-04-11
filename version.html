@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LioTil – Version</title>
+  <style>
+:root{
+  --bg:#f4f6f8;
+  --text:#1f1f1f;
+}
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:40px 20px 160px;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+
+.hero{
+  position:fixed;
+  top:230px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  z-index:10;
+}
+
+.logo-wrap{
+  position:relative;
+  width:520px;
+  max-width:90vw;
+  margin:0 auto 4px;
+  line-height:0;
+}
+
+.logo{
+  display:block;
+  width:100%;
+  max-width:none;
+  margin:0;
+}
+
+.logo-home-link,
+.logo-home-link:visited,
+.logo-home-link:hover,
+.logo-home-link:active{
+  position:absolute;
+  left:50%;
+  top:52%;
+  transform:translate(-50%,-50%);
+  width:min(360px,70%);
+  height:96px;
+  display:block;
+  padding:0;
+  margin:0;
+  border:0 !important;
+  text-decoration:none !important;
+  background:transparent;
+}
+
+.tagline{
+  display:none !important;
+}
+
+.footer-note{
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  text-align:center;
+  font-size:12px;
+  color:#8e8e8e;
+  line-height:1.7;
+  z-index:10;
+}
+
+.footer-links{
+  margin-top:2px;
+}
+
+.footer-links a,
+.footer-links a:visited,
+.footer-links a:hover,
+.footer-links a:active{
+  color:#8e8e8e;
+  text-decoration:none;
+}
+
+.subpage-content{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  top:560px;
+  bottom:70px;
+  width:min(760px, calc(100% - 48px));
+  max-width:760px;
+  padding:0 24px;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+
+.subpage-card{
+  width:100%;
+  max-width:760px;
+  height:100%;
+  min-height:0;
+  margin:0 auto;
+  border:none;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  padding:0 18px 0 0;
+  text-align:left;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(15,27,45,.28) transparent;
+}
+
+.subpage-card::-webkit-scrollbar{
+  width:10px;
+}
+.subpage-card::-webkit-scrollbar-track{
+  background:transparent;
+}
+.subpage-card::-webkit-scrollbar-thumb{
+  background:rgba(15,27,45,.22);
+  border-radius:10px;
+}
+.subpage-card::-webkit-scrollbar-thumb:hover{
+  background:rgba(15,27,45,.38);
+}
+
+.subpage-title{
+  margin:0 0 10px 0;
+  font-size: 20px;
+  font-weight:700;
+  color:#162744;
+  text-align:left;
+  font-family:"Courier New","Lucida Console",monospace;
+  letter-spacing:0.02em;
+  text-transform:uppercase;
+}
+
+.subpage-subtitle{
+  margin:0 0 30px 0;
+  font-size: 10px;
+  color:#4F617C;
+  text-align:left;
+  font-family:"Courier New","Lucida Console",monospace;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+}
+
+.subpage-section{
+  margin-top:26px;
+}
+
+.subpage-section + .subpage-section{
+  margin-top:32px;
+  padding-top:22px;
+  border-top:1px solid rgba(15,27,45,.12);
+}
+
+.subpage-section-title{
+  margin:0 0 12px 0;
+  font-size: 11px;
+  font-weight:700;
+  color:#162744;
+  text-align:left;
+  max-width:560px;
+  font-family:"Courier New","Lucida Console",monospace;
+  letter-spacing:0.02em;
+  text-transform:uppercase;
+}
+
+.subpage-text{
+  margin:0 0 14px 0;
+  line-height:1.75;
+  color:#162744;
+  font-size: 10px;
+  text-align:left;
+  max-width:560px;
+  font-family:"Courier New","Lucida Console",monospace;
+  letter-spacing:0.01em;
+}
+
+.subpage-link,
+.subpage-link:visited,
+.subpage-link:hover,
+.subpage-link:active{
+  color:#162744;
+  text-decoration:none;
+  border-bottom:1px solid rgba(15,27,45,.22);
+}
+
+.tagline::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  top:-36px;
+  width:72px;
+  height:1px;
+  background:#cfcfcf;
+  border-radius:1px;
+}
+
+@media (max-width: 900px){
+  .logo-home-link,
+  .logo-home-link:visited,
+  .logo-home-link:hover,
+  .logo-home-link:active{
+    width:min(300px,72%);
+    height:84px;
+  }
+
+  .subpage-content{
+    position:fixed;
+    left:50%;
+    transform:translateX(-50%);
+    top:470px;
+    bottom:70px;
+    width:min(760px, calc(100% - 36px));
+    max-width:760px;
+    padding:0 18px;
+    box-sizing:border-box;
+    overflow:hidden;
+  }
+
+  .subpage-card{
+    height:100%;
+    min-height:0;
+    padding:0 10px 0 0;
+  }
+
+  .subpage-title{
+    font-size: 18px;
+  }
+
+  .subpage-text,
+  .subpage-section-title{
+    max-width:none;
+  }
+}
+  
+.footer-version-link,
+.footer-version-link:visited,
+.footer-version-link:hover,
+.footer-version-link:active{
+  font-size:10px !important;
+  opacity:.68;
+}
+
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="hero">
+      <div class="logo-wrap">
+        <img src="logo3.png" class="logo" alt="LioTil Logo">
+        <a class="logo-home-link" href="index.html" aria-label="Back to homepage"></a>
+      </div>
+      <div class="tagline">
+        Innovation · AI · Technology<br>
+        Official Website
+      </div>
+    </div>
+
+    <main class="subpage-content">
+      <section class="subpage-card">
+        <h1 class="subpage-title">Version</h1>
+        <p class="subpage-subtitle">Technical Build Status</p>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Current version / Aktuelle Version</h2>
+          
+          <p class="subpage-text">
+            LioTil Website ............ v0.023<br>
+            GX10 Market Scanner page .. v0.023<br>
+            reMarkable Desk page ...... v0.023
+          </p>
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Base / Basis</h2>
+          <p class="subpage-text">
+            Active working version based on the current website state.
+          </p>
+          <p class="subpage-text">
+            Aktive Arbeitsversion auf Basis des aktuellen Website-Stands.
+          </p>
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Recent changes / Letzte Änderungen</h2>
+          <p class="subpage-text">
+            • Footer links added<br>
+            • Imprint, Privacy and Contact pages created<br>
+            • GX10 Market Scanner detail page refined<br>
+            • reMarkable Desk detail page refined<br>
+            • Logo navigation adjusted<br>
+            • Morse element replaced by a subtle line
+          </p>
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Previous states / Frühere Stände</h2>
+          <p class="subpage-text">
+            v0.022 · v0.021 · v0.010
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div class="footer-note">
+      <div>Website under construction</div>
+      <div class="footer-links"><a href="index.html">© 2026 LioTil</a> · <a href="imprint.html">Imprint</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Contact</a> · <a href="version.html" class="footer-version-link">v0.023</a></div>
+    </div>
+  </div>
+</body>
+</html>

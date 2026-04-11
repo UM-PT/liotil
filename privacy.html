@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LioTil – Imprint</title>
+  <style>
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  background:#ffffff;
+  margin:0;
+  min-height:100vh;
+  color:#333;
+  overflow:hidden;
+}
+
+.page{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:40px 20px 160px;
+  box-sizing:border-box;
+}
+
+.hero{
+  position:fixed;
+  top:230px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  z-index:10;
+}
+
+.logo-wrap{
+  position:relative;
+  width:520px;
+  max-width:90vw;
+  margin:0 auto 4px;
+  line-height:0;
+}
+
+.logo{
+  display:block;
+  width:100%;
+  max-width:none;
+  margin:0;
+}
+
+.tagline{
+  position:relative;
+  font-size:20px;
+  color:#555;
+  margin-top:-2cm;
+}
+
+.tagline::before{
+  content:"••−−••−−−";
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  top:-42px;
+  font-size:13px;
+  line-height:1;
+  color:#c2c2c2;
+  white-space:nowrap;
+}
+
+.footer-note{
+  position:fixed;
+  left:50%;
+  bottom:28px;
+  transform:translateX(-50%);
+  font-size:15px;
+  color:#777;
+  z-index:10;
+}
+
+.footer-links{
+  font-size:12px;
+  color:#777;
+  margin-top:4px;
+}
+
+.footer-links a,
+.footer-links a:visited,
+.footer-links a:hover,
+.footer-links a:active{
+  color:#777;
+  text-decoration:none;
+}
+
+.featured-project{
+  position:fixed;
+  top:590px;
+  bottom:70px;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:700px;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:24px;
+  align-content:start;
+  padding:0 24px 12px;
+  box-sizing:border-box;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+
+.featured-project-card{
+  position:relative;
+  width:100%;
+  min-height:290px;
+  background:#fcfcfc;
+  border:1px solid #e9e9e9;
+  box-shadow:0 8px 22px rgba(0,0,0,0.07);
+  border-radius:16px;
+  padding:18px 18px 32px;
+  text-align:left;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+}
+
+.featured-project-label{
+  font-size:12px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:#7a7a7a;
+  margin-bottom:10px;
+}
+
+.featured-project-card h2{
+  margin:0 0 12px 0;
+  font-size:22px;
+  font-weight:600;
+  color:#2f356f;
+}
+
+.featured-project-card p{
+  margin:0;
+  font-size:15px;
+  line-height:1.6;
+  color:#4f4f4f;
+}
+
+.featured-project-card p:first-of-type{
+  min-height:92px;
+}
+
+.featured-project-btn{
+  position:absolute;
+  left:18px;
+  bottom:10px;
+  margin-top:0;
+  padding:0;
+  border:none;
+  background:transparent;
+  color:#2f356f;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  align-self:flex-start;
+}
+
+.featured-project-btn:hover{
+  text-decoration:underline;
+}
+
+.card-version{
+  position:absolute;
+  right:14px;
+  bottom:10px;
+  font-size:10px;
+  color:#999;
+  line-height:1;
+}
+
+.card-subtext{
+  margin-top:0;
+  min-height:92px;
+  font-size:11px;
+  line-height:1.7;
+  color:#9f9f9f;
+}
+
+.lang-divider{
+  width:60px;
+  height:1px;
+  background:#e5e5e5;
+  margin:8px auto 10px;
+  flex:0 0 auto;
+}
+
+@media (max-width: 980px){
+  .featured-project{
+    margin-top:560px;
+  }
+
+  .featured-project-card{
+    max-width:520px;
+  }
+}
+
+.project-divider{
+  width:100%;
+  max-width:460px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-bottom:26px;
+}
+
+.project-divider-line{
+  width:120px;
+  height:1px;
+  background:#d8d8d8;
+  margin-bottom:12px;
+}
+
+.project-divider-label{
+  font-size:11px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:#8e8e8e;
+}
+
+@media (max-width: 900px){
+  .featured-project{
+    grid-template-columns:1fr;
+    max-width:620px;
+  }
+
+  .featured-project-card{
+    min-height:160px;
+  }
+}
+
+
+/* --- subpage layout based on index.html --- */
+.subpage-content{
+  width:100%;
+  max-width:980px;
+  margin:430px auto 170px;
+  padding:0 20px;
+}
+
+.subpage-card{
+  width:100%;
+  max-width:860px;
+  height:min(460px, calc(100vh - 620px));
+  min-height:260px;
+  margin:0 auto;
+  border:1px solid #000000;
+  border-radius:22px;
+  background:#E8EEF7;
+  box-shadow:0 18px 48px rgba(0,0,0,.16);
+  padding:40px 46px 34px;
+  text-align:left;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(15,27,45,.35) transparent;
+}
+
+.subpage-card::-webkit-scrollbar{
+  width:10px;
+}
+
+.subpage-card::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.subpage-card::-webkit-scrollbar-thumb{
+  background:rgba(15,27,45,.22);
+  border-radius:10px;
+}
+
+.subpage-card::-webkit-scrollbar-thumb:hover{
+  background:rgba(15,27,45,.38);
+}
+
+.subpage-title{
+  margin:0 0 8px 0;
+  font-size:34px;
+  font-weight:700;
+  color:#162744;
+  text-align:left;
+}
+
+.subpage-subtitle{
+  margin:0 0 34px 0;
+  font-size:15px;
+  color:#4F617C;
+  text-align:left;
+}
+
+.subpage-section{
+  margin-top:26px;
+}
+
+.subpage-section + .subpage-section{
+  margin-top:32px;
+  padding-top:22px;
+  border-top:1px solid rgba(15,27,45,.12);
+}
+
+.subpage-section-title{
+  margin:0 0 12px 0;
+  font-size:18px;
+  font-weight:700;
+  color:#162744;
+  text-align:left;
+  max-width:420px;
+}
+
+.subpage-text{
+  margin:0 0 14px 0;
+  line-height:1.75;
+  color:#162744;
+  font-size:15px;
+  text-align:left;
+  max-width:420px;
+}
+
+.subpage-link,
+.subpage-link:visited,
+.subpage-link:hover,
+.subpage-link:active{
+  color:#162744;
+  text-decoration:none;
+  border-bottom:1px solid rgba(243,246,251,.35);
+}
+
+.subpage-back,
+.subpage-back:visited,
+.subpage-back:hover,
+.subpage-back:active{
+  display:inline-block;
+  margin-top:24px;
+  color:#4F617C;
+  text-decoration:none;
+  border-bottom:1px solid rgba(174,184,200,.28);
+  font-size:14px;
+}
+
+@media (max-width: 900px){
+  .subpage-content{
+    margin:380px auto 160px;
+    padding:0 14px;
+  }
+
+  .subpage-card{
+    height:min(420px, calc(100vh - 520px));
+    min-height:220px;
+    padding:28px 24px 28px;
+  }
+
+  .subpage-title{
+    font-size:30px;
+  }
+
+  .subpage-text,
+  .subpage-section-title{
+    max-width:none;
+  }
+}
+
+  
+/* --- imprint visual refine --- */
+.hero .tagline{
+  display:none !important;
+}
+
+
+.logo-home-link,
+.logo-home-link:visited,
+.logo-home-link:hover,
+.logo-home-link:active{
+  position:absolute;
+  left:50%;
+  top:52%;
+  transform:translate(-50%,-50%);
+  width:min(360px,70%);
+  height:96px;
+  display:block;
+  padding:0;
+  margin:0;
+  border:0 !important;
+  text-decoration:none !important;
+  background:transparent;
+  pointer-events:auto;
+}
+
+@media (max-width: 900px){
+  .logo-home-link,
+  .logo-home-link:visited,
+  .logo-home-link:hover,
+  .logo-home-link:active{
+    width:min(300px,72%);
+    height:84px;
+  }
+}
+
+
+.footer-version-link,
+.footer-version-link:visited,
+.footer-version-link:hover,
+.footer-version-link:active{
+  font-size:10px !important;
+  opacity:.68;
+}
+
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="hero">
+      <div class="logo-wrap">
+      <img src="logo3.png" class="logo" alt="LioTil Logo">
+      <a class="logo-home-link" href="index.html" aria-label="Back to homepage"></a>
+    </div>
+      <div class="tagline">
+        Innovation · AI · Technology<br>
+        Official Website
+      </div>
+    </div>
+
+    <main class="subpage-content">
+      <section class="subpage-card">
+        <h1 class="subpage-title">Privacy</h1>
+        <p class="subpage-subtitle">Privacy Policy</p>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Controller / Verantwortlicher</h2>
+          <p class="subpage-text">
+            LioTil<br>
+            [Full name]<br>
+            Zur Ostsee [House number]<br>
+            18236 Kröpelin<br>
+            Germany<br><br>
+            E-Mail:
+            <a class="subpage-link" href="mailto:info@liotil.de">info@liotil.de</a><br>
+            Tel.:
+            <a class="subpage-link" href="tel:+4915678512566">+49 15678 512566</a>
+          </p>
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Website access / Zugriff auf die Website</h2>
+          <p class="subpage-text">
+            When visiting this website, technically required data may be processed automatically in order to provide the website securely and reliably.
+          </p>
+          <p class="subpage-text">
+            Beim Aufruf dieser Website können technisch erforderliche Daten automatisch verarbeitet werden, um die Website sicher und stabil bereitzustellen.
+          </p>
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Contact / Kontaktaufnahme</h2>
+          <p class="subpage-text">
+            If you contact us by e-mail, the information you provide will be processed for the purpose of handling your request.
+          </p>
+          <p class="subpage-text">
+            Wenn Du uns per E-Mail kontaktierst, werden Deine Angaben zur Bearbeitung Deiner Anfrage verarbeitet.
+          </p>
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Analytics and third-party services / Analyse- und Drittanbieter-Dienste</h2>
+          <p class="subpage-text">
+            At the current stage, this website does not intentionally use analytics or marketing tools unless explicitly stated otherwise.
+          </p>
+          <p class="subpage-text">
+            Im aktuellen Stand verwendet diese Website keine bewusst eingebundenen Analyse- oder Marketing-Tools, sofern dies nicht ausdrücklich anders angegeben wird.
+          </p>
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Your rights / Deine Rechte</h2>
+          <p class="subpage-text">
+            You have the right to request information about your personal data, rectification, erasure, restriction of processing, and to object to processing where applicable. You also have the right to lodge a complaint with a supervisory authority.
+          </p>
+          <p class="subpage-text">
+            Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und – soweit anwendbar – Widerspruch gegen die Verarbeitung Deiner personenbezogenen Daten. Außerdem hast Du das Recht, Dich bei einer Datenschutzaufsichtsbehörde zu beschweren.
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <div class="footer-note">
+      <div>Website under construction</div>
+      <div class="footer-links"><a href="index.html">© 2026 LioTil</a> · <a href="imprint.html">Imprint</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Contact</a> · <a href="version.html" class="footer-version-link">v0.023</a></div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LioTil – GX10 Market Scanner</title>
+  <style>
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  background:#ffffff;
+  margin:0;
+  min-height:100vh;
+  color:#333;
+  overflow:hidden;
+}
+
+.page{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:40px 20px 160px;
+  box-sizing:border-box;
+}
+
+.hero{
+  position:fixed;
+  top:230px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  z-index:10;
+}
+
+.logo-wrap{
+  position:relative;
+  width:520px;
+  max-width:90vw;
+  margin:0 auto 4px;
+  line-height:0;
+}
+
+.logo{
+  display:block;
+  width:100%;
+  max-width:none;
+  margin:0;
+}
+
+.tagline{
+  position:relative;
+  font-size:20px;
+  color:#555;
+  margin-top:-2cm;
+}
+
+.tagline::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  top:-36px;
+  width:72px;
+  height:1px;
+  background:#cfcfcf;
+  border-radius:1px;
+}
+
+.footer-note{
+  position:fixed;
+  left:50%;
+  bottom:28px;
+  transform:translateX(-50%);
+  font-size:15px;
+  color:#777;
+  z-index:10;
+}
+
+.footer-links{
+  font-size:12px;
+  color:#777;
+  margin-top:4px;
+}
+
+.footer-links a,
+.footer-links a:visited,
+.footer-links a:hover,
+.footer-links a:active{
+  color:#777;
+  text-decoration:none;
+}
+
+.featured-project{
+  position:fixed;
+  top:590px;
+  bottom:70px;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:700px;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:24px;
+  align-content:start;
+  padding:0 24px 12px;
+  box-sizing:border-box;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+
+.featured-project-card{
+  position:relative;
+  width:100%;
+  min-height:290px;
+  background:#fcfcfc;
+  border:1px solid #e9e9e9;
+  box-shadow:0 8px 22px rgba(0,0,0,0.07);
+  border-radius:16px;
+  padding:18px 18px 32px;
+  text-align:left;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+}
+
+.featured-project-label{
+  font-size:12px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:#7a7a7a;
+  margin-bottom:10px;
+}
+
+.featured-project-card h2{
+  margin:0 0 12px 0;
+  font-size:22px;
+  font-weight:600;
+  color:#2f356f;
+}
+
+.featured-project-card p{
+  margin:0;
+  font-size:15px;
+  line-height:1.6;
+  color:#4f4f4f;
+}
+
+.featured-project-card p:first-of-type{
+  min-height:92px;
+}
+
+.featured-project-btn{
+  position:absolute;
+  left:18px;
+  bottom:10px;
+  margin-top:0;
+  padding:0;
+  border:none;
+  background:transparent;
+  color:#2f356f;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  align-self:flex-start;
+}
+
+.featured-project-btn:hover{
+  text-decoration:underline;
+}
+
+.card-version{
+  position:absolute;
+  right:14px;
+  bottom:10px;
+  font-size:10px;
+  color:#999;
+  line-height:1;
+}
+
+.card-subtext{
+  margin-top:0;
+  min-height:92px;
+  font-size:11px;
+  line-height:1.7;
+  color:#9f9f9f;
+}
+
+.lang-divider{
+  width:60px;
+  height:1px;
+  background:#e5e5e5;
+  margin:8px auto 10px;
+  flex:0 0 auto;
+}
+
+@media (max-width: 980px){
+  .featured-project{
+    margin-top:560px;
+  }
+
+  .featured-project-card{
+    max-width:520px;
+  }
+}
+
+.project-divider{
+  width:100%;
+  max-width:460px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-bottom:26px;
+}
+
+.project-divider-line{
+  width:120px;
+  height:1px;
+  background:#d8d8d8;
+  margin-bottom:12px;
+}
+
+.project-divider-label{
+  font-size:11px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:#8e8e8e;
+}
+
+@media (max-width: 900px){
+  .featured-project{
+    grid-template-columns:1fr;
+    max-width:620px;
+  }
+
+  .featured-project-card{
+    min-height:160px;
+  }
+}
+
+
+/* --- subpage layout based on index.html --- */
+.subpage-content{
+  width:100%;
+  max-width:760px;
+  margin:430px auto 170px;
+  padding:0 24px;
+}
+
+.subpage-card{
+  width:100%;
+  max-width:760px;
+  height:min(500px, calc(100vh - 600px));
+  min-height:280px;
+  margin:0 auto;
+  border:none;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  padding:0 18px 0 0;
+  text-align:left;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(15,27,45,.28) transparent;
+}
+
+.subpage-card::-webkit-scrollbar{
+  width:10px;
+}
+
+.subpage-card::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.subpage-card::-webkit-scrollbar-thumb{
+  background:rgba(15,27,45,.22);
+  border-radius:10px;
+}
+
+.subpage-card::-webkit-scrollbar-thumb:hover{
+  background:rgba(15,27,45,.38);
+}
+
+.subpage-title{
+  margin:0 0 10px 0;
+  font-size:34px;
+  font-weight:700;
+  color:#162744;
+  text-align:left;
+}
+
+.subpage-subtitle{
+  margin:0 0 30px 0;
+  font-size:15px;
+  color:#4F617C;
+  text-align:left;
+}
+
+.subpage-section{
+  margin-top:26px;
+}
+
+.subpage-section + .subpage-section{
+  margin-top:32px;
+  padding-top:22px;
+  border-top:1px solid rgba(15,27,45,.12);
+}
+
+.subpage-section-title{
+  margin:0 0 12px 0;
+  font-size:18px;
+  font-weight:700;
+  color:#162744;
+  text-align:left;
+  max-width:420px;
+}
+
+.subpage-text{
+  margin:0 0 14px 0;
+  line-height:1.75;
+  color:#162744;
+  font-size:15px;
+  text-align:left;
+  max-width:420px;
+}
+
+.subpage-link,
+.subpage-link:visited,
+.subpage-link:hover,
+.subpage-link:active{
+  color:#162744;
+  text-decoration:none;
+  border-bottom:1px solid rgba(243,246,251,.35);
+}
+
+.subpage-back,
+.subpage-back:visited,
+.subpage-back:hover,
+.subpage-back:active{
+  display:inline-block;
+  margin-top:24px;
+  color:#4F617C;
+  text-decoration:none;
+  border-bottom:1px solid rgba(174,184,200,.28);
+  font-size:14px;
+}
+
+@media (max-width: 900px){
+  .subpage-content{
+    margin:380px auto 160px;
+    padding:0 18px;
+  }
+
+  .subpage-card{
+    height:min(430px, calc(100vh - 520px));
+    min-height:220px;
+    padding:0 10px 0 0;
+  }
+
+  .subpage-title{
+    font-size:30px;
+  }
+
+  .subpage-text,
+  .subpage-section-title{
+    max-width:none;
+  }
+}
+
+  
+/* --- imprint visual refine --- */
+.hero .tagline{
+  display:none !important;
+}
+
+
+.logo-home-link,
+.logo-home-link:visited,
+.logo-home-link:hover,
+.logo-home-link:active{
+  position:absolute;
+  left:50%;
+  top:52%;
+  transform:translate(-50%,-50%);
+  width:min(360px,70%);
+  height:96px;
+  display:block;
+  padding:0;
+  margin:0;
+  border:0 !important;
+  text-decoration:none !important;
+  background:transparent;
+  pointer-events:auto;
+}
+
+@media (max-width: 900px){
+  .logo-home-link,
+  .logo-home-link:visited,
+  .logo-home-link:hover,
+  .logo-home-link:active{
+    width:min(300px,72%);
+    height:84px;
+  }
+}
+
+
+.footer-version-link,
+.footer-version-link:visited,
+.footer-version-link:hover,
+.footer-version-link:active{
+  font-size:10px !important;
+  opacity:.68;
+}
+
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="hero">
+      <div class="logo-wrap">
+      <img src="logo3.png" class="logo" alt="LioTil Logo">
+      <a class="logo-home-link" href="index.html" aria-label="Back to homepage"></a>
+    </div>
+      <div class="tagline">
+        Innovation · AI · Technology<br>
+        Official Website
+      </div>
+    </div>
+
+    <main class="subpage-content">
+      <section class="subpage-card">
+        <h1 class="subpage-title">GX10 Market Scanner</h1>
+        <p class="subpage-subtitle">Project Detail</p>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Overview / Überblick</h2>
+          
+          <p class="subpage-text">
+            GX10 Market Scanner ist ein internes LioTil-Projekt zur strukturierten Beobachtung, Filterung und Einordnung marktbezogener Nachrichten und relevanter Unternehmensmeldungen.
+          </p>
+          <p class="subpage-text">
+            GX10 Market Scanner is an internal LioTil project for the structured monitoring, filtering and assessment of market-related news and relevant company updates.
+          </p>
+          <p class="subpage-text">
+            Im Fokus stehen eine klare Übersicht, nachvollziehbare Signale und eine lokal betriebene technische Umgebung für eine kontrollierte und transparente Verarbeitung.
+          </p>
+          <p class="subpage-text">
+            The focus is on clarity, traceable signals and a locally operated technical environment for controlled and transparent processing.
+          </p>
+
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">What is GX10? / Was ist GX10?</h2>
+          
+          <p class="subpage-text">
+            Das ASUS Ascent GX10 ist ein kompaktes Hochleistungs-System für lokale KI- und Rechenanwendungen. Im Kontext dieses Projekts dient es als technische Plattform für die lokale Verarbeitung, Analyse und Bereitstellung von Informationen.
+          </p>
+          <p class="subpage-text">
+            The ASUS Ascent GX10 is a compact high-performance system designed for local AI and compute workloads. Within this project, it serves as the technical platform for local processing, analysis and delivery of information.
+          </p>
+          <p class="subpage-text">
+            <a class="subpage-link" href="https://www.asus.com/" target="_blank" rel="noopener noreferrer">Official ASUS website</a>
+          </p>
+
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Core characteristics / Kerneigenschaften</h2>
+          
+          <p class="subpage-text">
+            • Local-first operation / Lokaler Betrieb als technischer Ausgangspunkt<br>
+            • Structured news filtering / Strukturierte Filterung relevanter Meldungen<br>
+            • Event classification / Einordnung von Ereignissen und Triggern<br>
+            • Traceable review logic / Nachvollziehbare Bewertungs- und Review-Logik
+          </p>
+
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Status</h2>
+          
+          <p class="subpage-text">
+            The project is currently presented as an internal development and concept page. A first professional version is planned to be released in a limited test phase before regular paid access begins.
+          </p>
+          <p class="subpage-text">
+            Das Projekt wird aktuell als interne Entwicklungs- und Konzeptseite dargestellt. Eine erste professionelle Version soll vor dem regulären Bezahlzugang zunächst in einer begrenzten Testphase verfügbar sein.
+          </p>
+          <p class="subpage-text">
+            Feedback, requirements and professional enquiries can currently be shared via the contact page or by email.
+          </p>
+          <p class="subpage-text">
+            Feedback, Anforderungen und professionelle Anfragen können derzeit über die Contact-Seite oder per E-Mail übermittelt werden.
+          </p>
+
+        </div>
+      </section>
+
+    </main>
+
+    <div class="footer-note">
+      <div>Website under construction</div>
+      <div class="footer-links"><a href="index.html">© 2026 LioTil</a> · <a href="imprint.html">Imprint</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Contact</a> · <a href="version.html" class="footer-version-link">v0.023</a></div>
+    </div>
+  </div>
+</body>
+</html>

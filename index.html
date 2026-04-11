@@ -2,7 +2,6 @@
 <html lang="de">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,38 +9,252 @@
 
 <meta name="description" content="LioTil develops AI tools and data systems.">
 
-<link rel="icon" href="logo.png">
+<link rel="icon" href="logo3.png">
 
 <style>
-
 body{
-font-family:Arial, Helvetica, sans-serif;
-background:#ffffff;
-margin:0;
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#ffffff;
+  margin:0;
+  min-height:100vh;
+  color:#333;
+  overflow:hidden;
+}
+
+.page{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:40px 20px 160px;
+  box-sizing:border-box;
+}
+
+.hero{
+  position:fixed;
+  top:230px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  z-index:10;
 }
 
 .logo{
-width:520px;
-margin-bottom:40px;
+  width:520px;
+  max-width:90vw;
+  margin-bottom:4px;
 }
 
 .tagline{
-font-size:20px;
-color:#555;
-margin-top:10px;
+  position:relative;
+  font-size:20px;
+  color:#555;
+  margin-top:-2cm;
 }
 
-.footer{
-position:absolute;
-bottom:40px;
-font-size:16px;
-color:#777;
+.tagline::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  top:-36px;
+  width:72px;
+  height:1px;
+  background:#cfcfcf;
+  border-radius:1px;
+}
+
+.footer-note{
+  position:fixed;
+  left:50%;
+  bottom:28px;
+  transform:translateX(-50%);
+  font-size:15px;
+  color:#777;
+  z-index:10;
+}
+
+.footer-links{
+  font-size:12px;
+  color:#777;
+  margin-top:4px;
+}
+
+.footer-links a,
+.footer-links a:visited,
+.footer-links a:hover,
+.footer-links a:active{
+  color:#777;
+  text-decoration:none;
+}
+
+.featured-project{
+  position:fixed;
+  top:590px;
+  bottom:70px;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:700px;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:24px;
+  align-content:start;
+  padding:0 24px 12px;
+  box-sizing:border-box;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+
+.featured-project-card{
+  position:relative;
+  width:100%;
+  min-height:290px;
+  background:#fcfcfc;
+  border:1px solid #e9e9e9;
+  box-shadow:0 8px 22px rgba(0,0,0,0.07);
+  border-radius:16px;
+  padding:18px 18px 32px;
+  text-align:left;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+}
+
+.featured-project-label{
+  font-size:12px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:#7a7a7a;
+  margin-bottom:10px;
+}
+
+.featured-project-card h2{
+  margin:0 0 12px 0;
+  font-size:22px;
+  font-weight:600;
+  color:#2f356f;
+}
+
+.featured-project-card p{
+  margin:0;
+  font-size:15px;
+  line-height:1.6;
+  color:#4f4f4f;
+}
+
+.featured-project-card p:first-of-type{
+  min-height:92px;
+}
+
+.featured-project-btn{
+  position:absolute;
+  left:18px;
+  bottom:10px;
+  margin-top:0;
+  padding:0;
+  border:none;
+  background:transparent;
+  color:#2f356f;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  align-self:flex-start;
+}
+
+.featured-project-btn:hover{
+  text-decoration:underline;
+}
+
+.card-version{
+  position:absolute;
+  right:14px;
+  bottom:10px;
+  font-size:10px;
+  color:#999;
+  line-height:1;
+}
+
+.card-subtext{
+  margin-top:0;
+  min-height:92px;
+  font-size:11px;
+  line-height:1.7;
+  color:#9f9f9f;
+}
+
+.lang-divider{
+  width:60px;
+  height:1px;
+  background:#e5e5e5;
+  margin:8px auto 10px;
+  flex:0 0 auto;
+}
+
+@media (max-width: 980px){
+  .featured-project{
+    margin-top:560px;
+  }
+
+  .featured-project-card{
+    max-width:520px;
+  }
+}
+
+.project-divider{
+  width:100%;
+  max-width:460px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-bottom:26px;
+}
+
+.project-divider-line{
+  width:120px;
+  height:1px;
+  background:#d8d8d8;
+  margin-bottom:12px;
+}
+
+.project-divider-label{
+  font-size:11px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:#8e8e8e;
+}
+
+@media (max-width: 900px){
+  .featured-project{
+    grid-template-columns:1fr;
+    max-width:620px;
+  }
+
+  .featured-project-card{
+    min-height:160px;
+  }
+}
+
+.footer-version-link,
+.footer-version-link:visited,
+.footer-version-link:hover,
+.footer-version-link:active{
+  font-size:10px !important;
+  opacity:.68;
+}
+
+
+.card-version-link,
+.card-version-link:visited,
+.card-version-link:hover,
+.card-version-link:active{
+  color:inherit;
+  text-decoration:none;
+  font-size:inherit;
+  opacity:.88;
 }
 
 </style>
@@ -49,20 +262,60 @@ color:#777;
 </head>
 
 <body>
+  <div class="page">
+    <div class="hero">
+      <img src="logo3.png" class="logo" alt="LioTil Logo">
+      <div class="tagline">
+        Innovation · AI · Technology<br>
+        Official Website
+      </div>
+    </div>
 
-<img src="logo3.png" class="logo">
+    
+    
+    
+    
+    <section class="featured-project">
+      <div class="featured-project-card">
+        <h2>GX10 Market Scanner</h2>
+        <p>
+          Professioneller Markt- und News-Scanner für relevante Entwicklungen<br>
+          und potenzielle Markt-Trigger.
+        </p>
+        <div class="lang-divider"></div>
+        <p class="card-subtext">
+          Professional market and news scanner for relevant developments<br>
+          and potential market triggers.
+        </p>
+        <button class="featured-project-btn" type="button" onclick="location.href='gx10-market-scanner.html'">Details</button>
+        <div class="card-version"><a href="version.html" class="card-version-link">v0.023</a></div>
+      </div>
 
-<div class="tagline">
-Innovation · AI · Technology<br>
-Official Website
-</div>
+      <div class="featured-project-card">
+        <h2>reMarkable Desk</h2>
+        <p>
+          Strukturierter Workspace für reMarkable-Inhalte,<br>
+          Workflows und spezielle Trading-Templates.
+        </p>
+        <div class="lang-divider"></div>
+        <p class="card-subtext">
+          Structured workspace for reMarkable content,<br>
+          workflows and dedicated trading templates.
+        </p>
+        <button class="featured-project-btn" type="button" onclick="location.href='remarkable-desk.html'">Details</button>
+        <div class="card-version"><a href="version.html" class="card-version-link">v0.023</a></div>
+      </div>
+    </section>
 
-<div class="footer">
-Website im Aufbau<br>
-Website under construction<br><br>
-© 2026 LioTil
-</div>
 
+
+
+
+    <div class="footer-note">
+      <div>Website under construction</div>
+      <div class="footer-links"><a href="index.html">© 2026 LioTil</a> · <a href="imprint.html">Imprint</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Contact</a> · <a href="version.html" class="footer-version-link">v0.023</a></div>
+    </div>
+  </div>
 </body>
 
 </html>
