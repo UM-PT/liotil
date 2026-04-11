@@ -258,6 +258,71 @@ body{
 }
 
 
+
+@media (min-width: 701px) and (max-width: 1180px){
+  body{
+    overflow-y:auto;
+    overflow-x:hidden;
+  }
+
+  .page{
+    min-height:auto;
+    padding:32px 24px 56px;
+  }
+
+  .hero{
+    position:relative;
+    top:auto;
+    left:auto;
+    transform:none;
+    margin-top:40px;
+    z-index:auto;
+  }
+
+  .logo{
+    width:min(58vw, 420px);
+  }
+
+  .featured-project{
+    position:relative;
+    top:auto;
+    bottom:auto;
+    left:auto;
+    transform:none;
+    margin-top:24px;
+    width:100%;
+    max-width:900px;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:20px;
+    align-content:initial;
+    padding:0;
+    overflow:visible;
+  }
+
+  .featured-project-card{
+    min-height:auto;
+    padding:18px 18px 40px;
+  }
+
+  .featured-project-card p:first-of-type{
+    min-height:0;
+  }
+
+  .footer-note{
+    position:relative;
+    left:auto;
+    bottom:auto;
+    transform:none;
+    margin:28px 0 12px;
+    font-size:14px;
+    z-index:auto;
+  }
+
+  .footer-links{
+    line-height:1.5;
+  }
+}
+
 @media (max-width: 700px){
   body{
     overflow-y:auto;
