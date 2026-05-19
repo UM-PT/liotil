@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LioTil – Imprint</title>
+  <title>LioTil – Büroassistent</title>
   <style>
 body{
   font-family:Arial, Helvetica, sans-serif;
@@ -58,15 +58,15 @@ body{
 }
 
 .tagline::before{
-  content:"••−−••−−−";
+  content:"";
   position:absolute;
   left:50%;
   transform:translateX(-50%);
-  top:-42px;
-  font-size:13px;
-  line-height:1;
-  color:#c2c2c2;
-  white-space:nowrap;
+  top:-36px;
+  width:72px;
+  height:1px;
+  background:#cfcfcf;
+  border-radius:1px;
 }
 
 .footer-note{
@@ -244,27 +244,27 @@ body{
 /* --- subpage layout based on index.html --- */
 .subpage-content{
   width:100%;
-  max-width:980px;
+  max-width:760px;
   margin:430px auto 170px;
-  padding:0 20px;
+  padding:0 24px;
 }
 
 .subpage-card{
   width:100%;
-  max-width:860px;
-  height:min(460px, calc(100vh - 620px));
-  min-height:260px;
+  max-width:760px;
+  height:min(500px, calc(100vh - 600px));
+  min-height:280px;
   margin:0 auto;
-  border:1px solid #000000;
-  border-radius:22px;
-  background:#E8EEF7;
-  box-shadow:0 18px 48px rgba(0,0,0,.16);
-  padding:40px 46px 34px;
+  border:none;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  padding:0 18px 0 0;
   text-align:left;
   overflow-y:auto;
   overflow-x:hidden;
   scrollbar-width:thin;
-  scrollbar-color:rgba(15,27,45,.35) transparent;
+  scrollbar-color:rgba(15,27,45,.28) transparent;
 }
 
 .subpage-card::-webkit-scrollbar{
@@ -285,7 +285,7 @@ body{
 }
 
 .subpage-title{
-  margin:0 0 8px 0;
+  margin:0 0 10px 0;
   font-size:34px;
   font-weight:700;
   color:#162744;
@@ -293,7 +293,7 @@ body{
 }
 
 .subpage-subtitle{
-  margin:0 0 34px 0;
+  margin:0 0 30px 0;
   font-size:15px;
   color:#4F617C;
   text-align:left;
@@ -351,13 +351,13 @@ body{
 @media (max-width: 900px){
   .subpage-content{
     margin:380px auto 160px;
-    padding:0 14px;
+    padding:0 18px;
   }
 
   .subpage-card{
-    height:min(420px, calc(100vh - 520px));
+    height:min(430px, calc(100vh - 520px));
     min-height:220px;
-    padding:28px 24px 28px;
+    padding:0 10px 0 0;
   }
 
   .subpage-title{
@@ -415,6 +415,85 @@ body{
   opacity:.68;
 }
 
+
+@media (max-width: 700px){
+  body{
+    overflow-y:auto;
+    overflow-x:hidden;
+  }
+
+  .page{
+    min-height:auto;
+    padding:24px 16px 48px;
+  }
+
+  .hero{
+    position:relative;
+    top:auto;
+    left:auto;
+    transform:none;
+    margin-top:24px;
+    z-index:auto;
+  }
+
+  .logo-wrap{
+    width:min(88vw, 420px);
+    max-width:min(88vw, 420px);
+    margin:0 auto;
+  }
+
+  .subpage-content{
+    max-width:420px;
+    margin:10px auto 0;
+    padding:0;
+  }
+
+  .subpage-card{
+    max-width:none;
+    height:auto;
+    min-height:0;
+    padding:0;
+    overflow:visible;
+  }
+
+  .subpage-title{
+    font-size:28px;
+    line-height:1.12;
+  }
+
+  .subpage-subtitle{
+    margin:0 0 22px 0;
+  }
+
+  .subpage-section{
+    margin-top:22px;
+  }
+
+  .subpage-section + .subpage-section{
+    margin-top:26px;
+    padding-top:18px;
+  }
+
+  .subpage-section-title,
+  .subpage-text{
+    max-width:none;
+  }
+
+  .footer-note{
+    position:relative;
+    left:auto;
+    bottom:auto;
+    transform:none;
+    margin:28px 0 12px;
+    font-size:14px;
+    z-index:auto;
+  }
+
+  .footer-links{
+    line-height:1.5;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -432,30 +511,83 @@ body{
 
     <main class="subpage-content">
       <section class="subpage-card">
-        <h1 class="subpage-title">Imprint</h1>
-        <p class="subpage-subtitle">Legal Notice</p>
+        <h1 class="subpage-title">Büroassistent</h1>
+        <p class="subpage-subtitle">Project Detail</p>
 
         <div class="subpage-section">
-          <h2 class="subpage-section-title">Provider / Anbieter</h2>
+          <h2 class="subpage-section-title">Overview / Überblick</h2>
+          
           <p class="subpage-text">
-            LioTil<br>
-            [Full name]<br>
-            Zur Ostsee [House number]<br>
-            18236 Kröpelin<br>
-            Germany
+            Der LioTil Büroassistent ist ein praxisnahes Arbeitswerkzeug zur strukturierten Erstellung von Angebotsentwürfen, Besprechungsprotokollen und Berichten aus Freitext.
+          </p>
+          <p class="subpage-text">
+            The LioTil Büroassistent is a practical work tool for the structured creation of draft quotes, meeting minutes and reports from free text.
+          </p>
+          <p class="subpage-text">
+            Im Mittelpunkt stehen Klarheit, Geschwindigkeit und ein ruhiger, professioneller Ablauf für typische Büro- und Projekttätigkeiten.
+          </p>
+          <p class="subpage-text">
+            The focus is on clarity, speed and a calm, professional workflow for typical office and project tasks.
           </p>
         </div>
 
         <div class="subpage-section">
-          <h2 class="subpage-section-title">Contact</h2>
+          <h2 class="subpage-section-title">Current scope / Aktueller Umfang</h2>
+          
           <p class="subpage-text">
-            E-Mail:
-            <a class="subpage-link" href="mailto:info@liotil.com">info@liotil.com</a><br>
-            Tel.:
-            <a class="subpage-link" href="tel:+4915678512566">+49 15678 512566</a>
+            Aktuell unterstützt der Büroassistent insbesondere Angebotsentwürfe, Protokolle und Berichte. Bestehende Arbeitslogik, Exportfunktionen und Übersichten werden dabei Schritt für Schritt strukturiert ausgebaut.
+          </p>
+          <p class="subpage-text">
+            The current scope focuses on draft quotes, meeting minutes and reports. Existing workflow logic, export functions and overview elements are being expanded step by step in a structured way.
           </p>
         </div>
-</section>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Practical direction / Praxisrichtung</h2>
+          
+          <p class="subpage-text">
+            Perspektivisch soll der Büroassistent nicht nur mit Texteingaben arbeiten, sondern auch Fotos, Sprachmemos, PDFs, Scans und Notizen sinnvoll in verwertbare Dokumente und Vorgänge überführen.
+          </p>
+          <p class="subpage-text">
+            In the longer term, the Büroassistent is intended to work not only with text input, but also with photos, voice notes, PDFs, scans and notes and turn them into usable documents and structured cases.
+          </p>
+          <p class="subpage-text">
+            Der Ansatz ist bewusst praxisnah: vorhandene Handy-Funktionen nutzen, statt sofort eine eigene App zu erzwingen.
+          </p>
+          <p class="subpage-text">
+            The approach is deliberately practical: use existing phone functions first instead of forcing a dedicated mobile app too early.
+          </p>
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Core characteristics / Kerneigenschaften</h2>
+          
+          <p class="subpage-text">
+            • Structured text processing / Strukturierte Textverarbeitung<br>
+            • Practical office workflows / Praxisnahe Büro-Workflows<br>
+            • Step-by-step expansion / Kontrollierter und schrittweiser Ausbau<br>
+            • Product focus on useful output / Fokus auf direkt nutzbare Ergebnisse
+          </p>
+        </div>
+
+        <div class="subpage-section">
+          <h2 class="subpage-section-title">Status</h2>
+          
+          <p class="subpage-text">
+            The project is currently presented as an internal development and concept page. The next steps focus on a structured dashboard entry, a stable workflow layer and later document-based input expansion.
+          </p>
+          <p class="subpage-text">
+            Das Projekt wird aktuell als interne Entwicklungs- und Konzeptseite dargestellt. Die nächsten Schritte konzentrieren sich auf einen strukturierten Dashboard-Einstieg, eine stabile Arbeitsebene und später auf dokumentbasierte Eingaben.
+          </p>
+          <p class="subpage-text">
+            Feedback, requirements and professional enquiries can currently be shared via the contact page or by email.
+          </p>
+          <p class="subpage-text">
+            Feedback, Anforderungen und professionelle Anfragen können derzeit über die Contact-Seite oder per E-Mail übermittelt werden.
+          </p>
+        </div>
+      </section>
+
     </main>
 
     <div class="footer-note">

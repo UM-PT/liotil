@@ -1,0 +1,4243 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>reMarkable Desk – Local desktop tool for reMarkable users</title>
+  <meta name="description" content="reMarkable Desk helps reMarkable users back up, organize and better understand their data locally. Private notes and backups stay on your computer.">
+      <style>
+    :root {
+      --bg: #f3f1ec;
+      --panel: #ffffff;
+      --panel2: #f8f6f1;
+      --text: #171a21;
+      --muted: #555b66;
+      --soft: #747b86;
+      --line: rgba(23,26,33,.13);
+      --accent: #2f5f73;
+      --accent2: #2f6f5e;
+      --accent3: #b9823f;
+      --dark: #171a21;
+      --warm: #e9dfcf;
+      --blueSoft: #e7f0f3;
+      --greenSoft: #e7f1ec;
+      --goldSoft: #f3eadc;
+      --warn: #8a642a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Segoe UI, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(47,95,115,.16), transparent 34%),
+        radial-gradient(circle at 85% 20%, rgba(47,111,94,.13), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(185,130,63,.18), transparent 36%),
+        linear-gradient(145deg, #fbfaf7, var(--bg));
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 0 42px;
+    }
+
+    .brand {
+      font-weight: 850;
+      letter-spacing: .02em;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 6px rgba(47,95,115,.10);
+    }
+
+    .badge {
+      border: 1px solid var(--line);
+      color: var(--muted);
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 13px;
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 8px 28px rgba(23,26,33,.07);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 28px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.97), rgba(248,246,241,.93));
+      border-radius: 26px;
+      padding: 30px;
+      box-shadow: 0 24px 70px rgba(23,26,33,.11);
+    }
+
+    .hero-main {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 7px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--blueSoft);
+      color: #214b5c;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 4.4vw, 58px);
+      line-height: 1.04;
+      margin: 0 0 20px;
+      letter-spacing: -.045em;
+      color: var(--text);
+    }
+
+    h2 {
+      font-size: 28px;
+      line-height: 1.18;
+      margin: 0 0 14px;
+      letter-spacing: -.02em;
+      color: var(--text);
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: var(--text);
+    }
+
+    p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .lead {
+      font-size: 21px;
+      color: #3f4650;
+      max-width: 760px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-weight: 850;
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(23,26,33,.08);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #ffffff;
+      border-color: rgba(47,95,115,.24);
+    }
+
+    .btn.secondary {
+      color: var(--text);
+      background: rgba(255,255,255,.82);
+    }
+
+    .trust {
+      margin-top: 22px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(47,111,94,.09);
+      border: 1px solid rgba(47,111,94,.18);
+      color: #314c43;
+      font-size: 15px;
+    }
+
+    .mock {
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.98), rgba(242,239,232,.92)),
+        var(--panel);
+    }
+
+    .mock-title {
+      color: var(--soft);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .mock-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .status-ok {
+      color: #2f6f5e;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin: 28px 0;
+    }
+
+    .grid .card:nth-child(1) { background: linear-gradient(180deg, #ffffff, var(--blueSoft)); }
+    .grid .card:nth-child(2) { background: linear-gradient(180deg, #ffffff, var(--greenSoft)); }
+    .grid .card:nth-child(3) { background: linear-gradient(180deg, #ffffff, var(--goldSoft)); }
+
+    .section {
+      margin-top: 28px;
+    }
+
+    .platforms {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .platform {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255,255,255,.72);
+    }
+
+    .platform strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--text);
+    }
+
+    .platform span {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .platform.ready {
+      background: var(--greenSoft);
+      border-color: rgba(47,111,94,.22);
+    }
+
+    .platform.planned {
+      background: var(--blueSoft);
+      border-color: rgba(47,95,115,.18);
+    }
+
+    .note {
+      border-left: 4px solid var(--accent3);
+      background: rgba(233,223,207,.55);
+      padding: 18px 20px;
+      border-radius: 18px;
+      color: #4d3b1e;
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    li { margin: 7px 0; }
+
+    .faq {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    footer {
+      margin-top: 42px;
+      color: #747b86;
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+    }
+
+
+    .liotil-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 850;
+      color: #2f5f73;
+      letter-spacing: .01em;
+    }
+
+    .liotil-mark::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #2f5f73, #2f6f5e);
+      box-shadow: 0 0 0 5px rgba(47,95,115,.10);
+    }
+
+    .brand-divider {
+      color: #9aa1aa;
+      font-weight: 600;
+    }
+
+    .liotil-logo {
+      height: 42px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .brand-product {
+      font-weight: 850;
+      color: var(--text);
+      letter-spacing: .01em;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .brand {
+      gap: 14px;
+    }
+
+    /* v8: echtes Logo ohne alten Punkt davor */
+    .brand::before {
+      content: none !important;
+      display: none !important;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .liotil-logo {
+      height: 44px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .product-chip {
+      justify-self: center;
+      border: 1px solid rgba(23,26,33,.12);
+      background: rgba(255,255,255,.72);
+      color: #171a21;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 15px;
+      font-weight: 850;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+      white-space: nowrap;
+    }
+
+
+    /* v9: Produkt links, LioTil rechts */
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .product-left {
+      justify-self: start;
+      color: #171a21;
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: -.02em;
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 9px 16px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+      white-space: nowrap;
+    }
+
+    .liotil-right {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+    .liotil-logo {
+      height: 44px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+
+    /* v10: Header ausgewogener – Produkt links, Alpha darunter, LioTil rechts */
+    header.topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title {
+      color: #171a21;
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .provider-card {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 22px;
+      padding: 10px 16px 10px 13px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+    }
+
+    .provider-label {
+      color: #7b838f;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .liotil-logo {
+      height: 46px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v13: clean header – Produkt links, Logo rechts, kein Anbietertext oben */
+    header.topbar-v13 {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block-v13 {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title-v13 {
+      color: #171a21;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line-v13 {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .liotil-logo-card-v13 {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 24px;
+      padding: 12px 18px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+      min-width: 210px;
+    }
+
+    .liotil-logo-v13 {
+      height: 48px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .provider-card,
+    .provider-label,
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar-v13 {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .liotil-logo-card-v13 {
+        justify-self: start;
+        min-width: 0;
+      }
+
+      .liotil-logo-v13 {
+        height: 42px;
+      }
+    }
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .provider-card {
+        justify-self: start;
+      }
+
+      .liotil-logo {
+        height: 42px;
+      }
+    }
+
+    /* v13: clean header – Produkt links, Logo rechts, kein Anbietertext oben */
+    header.topbar-v13 {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block-v13 {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title-v13 {
+      color: #171a21;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line-v13 {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .liotil-logo-card-v13 {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 24px;
+      padding: 12px 18px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+      min-width: 210px;
+    }
+
+    .liotil-logo-v13 {
+      height: 48px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .provider-card,
+    .provider-label,
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar-v13 {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .liotil-logo-card-v13 {
+        justify-self: start;
+        min-width: 0;
+      }
+
+      .liotil-logo-v13 {
+        height: 42px;
+      }
+    }
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+      }
+
+      .product-left,
+      .badge,
+      .liotil-right {
+        justify-self: start;
+      }
+
+      .liotil-logo {
+        height: 40px;
+      }
+    }
+
+    /* v10: Header ausgewogener – Produkt links, Alpha darunter, LioTil rechts */
+    header.topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title {
+      color: #171a21;
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .provider-card {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 22px;
+      padding: 10px 16px 10px 13px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+    }
+
+    .provider-label {
+      color: #7b838f;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .liotil-logo {
+      height: 46px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v13: clean header – Produkt links, Logo rechts, kein Anbietertext oben */
+    header.topbar-v13 {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block-v13 {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title-v13 {
+      color: #171a21;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line-v13 {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .liotil-logo-card-v13 {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 24px;
+      padding: 12px 18px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+      min-width: 210px;
+    }
+
+    .liotil-logo-v13 {
+      height: 48px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .provider-card,
+    .provider-label,
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar-v13 {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .liotil-logo-card-v13 {
+        justify-self: start;
+        min-width: 0;
+      }
+
+      .liotil-logo-v13 {
+        height: 42px;
+      }
+    }
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .provider-card {
+        justify-self: start;
+      }
+
+      .liotil-logo {
+        height: 42px;
+      }
+    }
+
+    /* v13: clean header – Produkt links, Logo rechts, kein Anbietertext oben */
+    header.topbar-v13 {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block-v13 {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title-v13 {
+      color: #171a21;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line-v13 {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .liotil-logo-card-v13 {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 24px;
+      padding: 12px 18px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+      min-width: 210px;
+    }
+
+    .liotil-logo-v13 {
+      height: 48px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .provider-card,
+    .provider-label,
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar-v13 {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .liotil-logo-card-v13 {
+        justify-self: start;
+        min-width: 0;
+      }
+
+      .liotil-logo-v13 {
+        height: 42px;
+      }
+    }
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+      }
+
+      .product-chip {
+        justify-self: start;
+      }
+    }
+
+    /* v9: Produkt links, LioTil rechts */
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .product-left {
+      justify-self: start;
+      color: #171a21;
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: -.02em;
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 9px 16px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+      white-space: nowrap;
+    }
+
+    .liotil-right {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+    .liotil-logo {
+      height: 44px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+
+    /* v10: Header ausgewogener – Produkt links, Alpha darunter, LioTil rechts */
+    header.topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title {
+      color: #171a21;
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .provider-card {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 22px;
+      padding: 10px 16px 10px 13px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+    }
+
+    .provider-label {
+      color: #7b838f;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .liotil-logo {
+      height: 46px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v13: clean header – Produkt links, Logo rechts, kein Anbietertext oben */
+    header.topbar-v13 {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block-v13 {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title-v13 {
+      color: #171a21;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line-v13 {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .liotil-logo-card-v13 {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 24px;
+      padding: 12px 18px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+      min-width: 210px;
+    }
+
+    .liotil-logo-v13 {
+      height: 48px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .provider-card,
+    .provider-label,
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar-v13 {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .liotil-logo-card-v13 {
+        justify-self: start;
+        min-width: 0;
+      }
+
+      .liotil-logo-v13 {
+        height: 42px;
+      }
+    }
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .provider-card {
+        justify-self: start;
+      }
+
+      .liotil-logo {
+        height: 42px;
+      }
+    }
+
+    /* v13: clean header – Produkt links, Logo rechts, kein Anbietertext oben */
+    header.topbar-v13 {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block-v13 {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title-v13 {
+      color: #171a21;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line-v13 {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .liotil-logo-card-v13 {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 24px;
+      padding: 12px 18px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+      min-width: 210px;
+    }
+
+    .liotil-logo-v13 {
+      height: 48px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .provider-card,
+    .provider-label,
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar-v13 {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .liotil-logo-card-v13 {
+        justify-self: start;
+        min-width: 0;
+      }
+
+      .liotil-logo-v13 {
+        height: 42px;
+      }
+    }
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+      }
+
+      .product-left,
+      .badge,
+      .liotil-right {
+        justify-self: start;
+      }
+
+      .liotil-logo {
+        height: 40px;
+      }
+    }
+
+    /* v10: Header ausgewogener – Produkt links, Alpha darunter, LioTil rechts */
+    header.topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title {
+      color: #171a21;
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .provider-card {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 22px;
+      padding: 10px 16px 10px 13px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+    }
+
+    .provider-label {
+      color: #7b838f;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .liotil-logo {
+      height: 46px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v13: clean header – Produkt links, Logo rechts, kein Anbietertext oben */
+    header.topbar-v13 {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block-v13 {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title-v13 {
+      color: #171a21;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line-v13 {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .liotil-logo-card-v13 {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 24px;
+      padding: 12px 18px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+      min-width: 210px;
+    }
+
+    .liotil-logo-v13 {
+      height: 48px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .provider-card,
+    .provider-label,
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar-v13 {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .liotil-logo-card-v13 {
+        justify-self: start;
+        min-width: 0;
+      }
+
+      .liotil-logo-v13 {
+        height: 42px;
+      }
+    }
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .provider-card {
+        justify-self: start;
+      }
+
+      .liotil-logo {
+        height: 42px;
+      }
+    }
+
+    /* v13: clean header – Produkt links, Logo rechts, kein Anbietertext oben */
+    header.topbar-v13 {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 0 42px;
+    }
+
+    .product-title-block-v13 {
+      justify-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .product-title-v13 {
+      color: #171a21;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+    }
+
+    .alpha-line-v13 {
+      color: #66707b;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .liotil-logo-card-v13 {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 24px;
+      padding: 12px 18px;
+      box-shadow: 0 12px 32px rgba(23,26,33,.08);
+      min-width: 210px;
+    }
+
+    .liotil-logo-v13 {
+      height: 48px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .provider-card,
+    .provider-label,
+    .product-left,
+    .badge,
+    .liotil-right,
+    .brand,
+    .brand::before,
+    .liotil-mark,
+    .liotil-mark::before,
+    .brand-divider,
+    .brand-product,
+    .product-chip {
+      display: none !important;
+      content: none !important;
+    }
+
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      header.topbar-v13 {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .liotil-logo-card-v13 {
+        justify-self: start;
+        min-width: 0;
+      }
+
+      .liotil-logo-v13 {
+        height: 42px;
+      }
+    }
+
+    /* v15: exakt v13 behalten, nur weißen Logo-Rahmen/Kasten rechts entfernen */
+    .liotil-logo-card-v13 {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* v16: Entwicklungs-/Update-Hinweis */
+    .roadmap-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(231,241,236,.72));
+      border: 1px solid rgba(47,111,94,.18);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .roadmap-item {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: #171a21;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .roadmap-item span {
+      color: #555b66;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin: -22px 0 18px;
+    }
+
+    .language-switch a {
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 7px 12px;
+      box-shadow: 0 8px 24px rgba(23,26,33,.06);
+    }
+
+    /* Sprachumschaltung dezent im linken Headerbereich */
+    .language-switch {
+      display: none !important;
+    }
+
+    .language-switch-inline {
+      margin-top: 7px;
+    }
+
+    .language-switch-inline a {
+      display: inline-flex;
+      text-decoration: none;
+      color: #2f5f73;
+      font-weight: 850;
+      font-size: 13px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(23,26,33,.10);
+      border-radius: 999px;
+      padding: 6px 11px;
+      box-shadow: 0 7px 18px rgba(23,26,33,.055);
+    }
+
+    .liotil-home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 0;
+    }
+
+    .liotil-home-link:focus-visible {
+      outline: 2px solid #2f5f73;
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+    @media (max-width: 850px) {
+      .hero, .grid, .faq, .platforms {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar-v13">
+      <div class="product-title-block-v13">
+        <div class="product-title-v13">reMarkable Desk</div>
+        <div class="alpha-line-v13">Early public alpha preparation</div>
+        <div class="language-switch-inline"><a href="./de/index.html">Deutsch</a></div>
+      </div>
+
+      <div class="liotil-logo-card-v13">
+        <a class="liotil-home-link" href="https://liotil.com/" title="LioTil" aria-label="Open LioTil website"><img class="liotil-logo-v13" src="assets/liotil-logo-transparent.png" alt="LioTil Logo"></a>
+      </div>
+    </header>
+<main>
+      <section class="hero">
+        <div class="card hero-main">
+          <div class="kicker">Local backup · better overview · more control</div>
+          <h1>Back up, organize and better understand your reMarkable data locally.</h1>
+          <p class="lead">reMarkable Desk is a simple desktop tool for reMarkable users. It helps you manage backups, notes, PDFs, device information and useful guidance locally on your Windows PC.</p>
+
+          <div class="actions">
+            <a class="btn primary" href="#beta">Request early access</a>
+            <a class="btn secondary" href="#privacy">Learn more about privacy</a>
+          </div>
+
+          <div class="trust">Private notes and backups stay on your computer. No automatic cloud upload of your personal content.</div>
+        </div>
+
+        <div class="card mock">
+          <div>
+            <div class="mock-title">Preview: local overview</div>
+            <div class="mock-row"><span>Backup status</span><strong class="status-ok">OK</strong></div>
+            <div class="mock-row"><span>Notes</span><strong>local</strong></div>
+            <div class="mock-row"><span>PDFs</span><strong>organized</strong></div>
+            <div class="mock-row"><span>Device info</span><strong>visible</strong></div>
+          </div>
+          <p>No cloud requirement. No data confusion. More control over your own content.</p>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <h3>Make local backups easier to understand</h3>
+          <p>Back up your reMarkable data locally and keep a clearer overview of which backups are available.</p>
+        </div>
+        <div class="card">
+          <h3>Find notes and PDFs faster</h3>
+          <p>Your content should become easier to sort, find and later export or archive in a controlled way.</p>
+        </div>
+        <div class="card">
+          <h3>Clear guidance instead of technical frustration</h3>
+          <p>If something does not work, you should get understandable guidance instead of cryptic error messages.</p>
+        </div>
+      </section>
+
+      <section id="privacy" class="section card">
+        <h2>Your data stays with you</h2>
+        <p>reMarkable Desk is designed as a local desktop tool.</p>
+        <ul>
+          <li>Private notes stay on your computer.</li>
+          <li>Backups remain local.</li>
+          <li>No automatic cloud upload of personal content.</li>
+          <li>No hidden synchronization of your documents.</li>
+          <li>Future online functions are intended only for official app content such as updates, changelogs or guidance.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Windows first. Mac and Linux are planned.</h2>
+        <p>The current development focus is Windows, because it is the fastest realistic path for the first public alpha. The technical foundation is intended to be cross-platform, so Mac and Linux versions are planned later.</p>
+
+        <div class="platforms">
+          <div class="platform ready">
+            <strong>Windows</strong>
+            <span>First public alpha is being prepared for Windows.</span>
+          </div>
+          <div class="platform planned">
+            <strong>Mac</strong>
+            <span>Planned after initial Windows beta feedback.</span>
+          </div>
+          <div class="platform planned">
+            <strong>Linux</strong>
+            <span>Planned and likely easier to test technically than Mac.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section card roadmap-card">
+        <h2>Actively developed</h2>
+        <p>reMarkable Desk is planned as a growing tool. The first public alpha is meant to show which functions are truly useful for users. Improvements, new features and reasonable user requests should be added step by step through updates.</p>
+
+        <div class="roadmap-grid">
+          <div class="roadmap-item">
+            <strong>More comfort</strong>
+            <span>Backup, overview, help and export workflows should become easier and more pleasant over time.</span>
+          </div>
+          <div class="roadmap-item">
+            <strong>User feedback</strong>
+            <span>Feedback from beta users will be collected deliberately and used for further development.</span>
+          </div>
+          <div class="roadmap-item">
+            <strong>More features</strong>
+            <span>Planned ideas include better reports, pro features, template convenience and later Mac/Linux steps.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section note">
+        <strong>Alpha notice:</strong> reMarkable Desk is in an early testing phase. Please use it only if you already have your own backup. It is not intended for production-critical data yet.
+      </section>
+
+      <section id="beta" class="section card">
+        <h2>Would you like to test reMarkable Desk?</h2>
+        <p>We are preparing an early test version and are looking for users who are willing to give feedback.</p>
+        <ul>
+          <li>Name</li>
+          <li>Email</li>
+          <li>Country/Region</li>
+          <li>Preferred language</li>
+          <li>reMarkable model</li>
+          <li>Operating system: Windows, Mac or Linux</li>
+          <li>What would you mainly like to solve with reMarkable Desk?</li>
+          <li>Which feature would be most important to you?</li>
+        </ul>
+        <div class="actions">
+          <a class="btn primary" id="betaMailButton" href="#">Request early access by email</a>
+        </div>
+        <p style="font-size:14px;color:#555b66;margin-top:10px;">The button opens a prepared email to info@liotil.com. You only need to add your details and send it.<br>If no email window opens, please copy the questions above into a new email to info@liotil.com and answer them there.</p>
+      </section>
+
+      <section class="section faq">
+        <div class="card">
+          <h3>Will my notes be uploaded to the cloud?</h3>
+          <p>No. Private notes, backups and PDFs are intended to stay locally on your computer.</p>
+        </div>
+        <div class="card">
+          <h3>Is reMarkable Desk an official reMarkable product?</h3>
+          <p>No. reMarkable Desk is an independent tool for reMarkable users.</p>
+        </div>
+        <div class="card">
+          <h3>Can I download it already?</h3>
+          <p>Not as a public download yet. A early access interest list is the safer first step so early tests can be handled in a controlled way.</p>
+        </div>
+        <div class="card">
+          <h3>Does it run on Mac?</h3>
+          <p>Windows is being prepared first. Mac and Linux are planned, but not yet available as public test versions.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div><strong>A LioTil product</strong> · © 2026 LioTil. All rights reserved.</div>
+      <div style="margin-top:8px;">
+        reMarkable Desk is an independent tool for reMarkable users. It is not an official product of reMarkable and is not made, operated or supported by reMarkable.
+      </div>
+    </footer>
+  </div>
+
+
+<script>
+(function () {
+  const button = document.getElementById("betaMailButton");
+  if (!button) return;
+
+  button.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const subject = "Early access request reMarkable Desk";
+
+    const body = [
+      "Hello LioTil Team,",
+      "",
+      "I am interested in reMarkable Desk and would like to join the early access interest list.",
+      "",
+      "My details:",
+      "",
+      "Name:",
+      "Email:",
+      "Country/Region:",
+      "Preferred language:",
+      "",
+      "reMarkable model:",
+      "Operating system: Windows / Mac / Linux",
+      "",
+      "What would I mainly like to solve with reMarkable Desk?",
+      "- ",
+      "",
+      "Which feature would be most important to me?",
+      "- ",
+      "",
+      "How important is local data storage to me?",
+      "[ ] very important",
+      "[ ] important",
+      "[ ] less important",
+      "",
+      "May LioTil contact me for follow-up questions?",
+      "[ ] Yes",
+      "[ ] No",
+      "",
+      "Additional notes or wishes:",
+      "- ",
+      "",
+      "Best regards"
+    ].join("\r\n");
+
+    window.location.href =
+      "mailto:info@liotil.com?subject=" +
+      encodeURIComponent(subject) +
+      "&body=" +
+      encodeURIComponent(body);
+  });
+})();
+</script>
+</body>
+</html>
+
+
+
+
+
+
