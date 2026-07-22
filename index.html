@@ -412,6 +412,193 @@ body{
   }
 }
 
+/* LioTil E-Ink Collection */
+.eink-collection-card{
+  grid-column:1 / -1;
+  min-height:182px;
+  padding:18px 20px;
+  overflow:hidden;
+  cursor:pointer;
+  background:linear-gradient(135deg, #fdfdff 0%, #f6f7fc 100%);
+  border-color:#dfe3ef;
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease;
+}
+
+.eink-collection-card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:3px;
+  background:linear-gradient(90deg, #2f356f, #7f88bc);
+}
+
+.eink-collection-card:hover{
+  transform:translateY(-2px);
+  border-color:#cfd5e7;
+  box-shadow:0 12px 30px rgba(47,53,111,.12);
+}
+
+.eink-collection-card:focus-visible{
+  outline:3px solid rgba(47,53,111,.22);
+  outline-offset:3px;
+}
+
+.eink-card-layout{
+  width:100%;
+  min-height:144px;
+  display:grid;
+  grid-template-columns:minmax(0, 1.25fr) minmax(280px, .95fr);
+  gap:28px;
+  align-items:center;
+}
+
+.eink-card-copy{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  text-align:left;
+}
+
+.eink-card-eyebrow{
+  margin-bottom:7px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#747ca4;
+}
+
+.eink-collection-card h2{
+  margin-bottom:7px;
+  font-size:26px;
+  line-height:1.1;
+}
+
+.eink-collection-card p:first-of-type{
+  min-height:0;
+}
+
+.eink-card-description{
+  max-width:500px;
+}
+
+.eink-card-description-en{
+  margin-top:5px !important;
+  font-size:11px !important;
+  color:#858585 !important;
+}
+
+.eink-card-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:13px;
+}
+
+.eink-card-link,
+.eink-card-link:visited{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:28px;
+  padding:0 12px;
+  border:1px solid #d8deec;
+  border-radius:999px;
+  background:#ffffff;
+  color:#2f356f;
+  font-size:11px;
+  font-weight:700;
+  text-decoration:none;
+  box-sizing:border-box;
+}
+
+.eink-card-link:hover{
+  border-color:#bec7df;
+  text-decoration:none;
+}
+
+.eink-card-link-primary,
+.eink-card-link-primary:visited{
+  border-color:#2f356f;
+  background:#2f356f;
+  color:#ffffff;
+}
+
+.eink-card-meta{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  text-align:left;
+}
+
+.eink-card-meta-title{
+  margin-bottom:8px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#777e9c;
+}
+
+.eink-device-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.eink-device{
+  padding:5px 8px;
+  border:1px solid #e1e4ed;
+  border-radius:7px;
+  background:rgba(255,255,255,.82);
+  font-size:10px;
+  line-height:1;
+  color:#555b73;
+  white-space:nowrap;
+}
+
+.eink-card-benefits{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:13px;
+  font-size:11px;
+  font-weight:700;
+  color:#2f356f;
+}
+
+.eink-card-benefit::before{
+  content:"✓";
+  margin-right:5px;
+  color:#6872a8;
+}
+
+@media (max-width:700px){
+  .eink-collection-card{
+    padding:20px 18px;
+  }
+
+  .eink-card-layout{
+    min-height:0;
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+
+  .eink-collection-card h2{
+    font-size:23px;
+  }
+
+  .eink-card-meta{
+    padding-top:17px;
+    border-top:1px solid #e1e3eb;
+  }
+}
+
 </style>
 
 </head>
@@ -431,6 +618,70 @@ body{
     
     
     <section class="featured-project">
+
+      <article
+        class="featured-project-card eink-collection-card"
+        role="link"
+        tabindex="0"
+        aria-label="LioTil E-Ink Collection – Details"
+        onclick="location.href='e-ink-collection.html'"
+        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();location.href='e-ink-collection.html';}"
+      >
+        <div class="eink-card-layout">
+          <div class="eink-card-copy">
+            <div class="eink-card-eyebrow">New · Digital Product</div>
+            <h2>LioTil E-Ink Collection</h2>
+
+            <p class="eink-card-description">
+              Professionell verlinkte PDF-Notizbücher für Projekte, Planung und strukturierte Notizen.
+            </p>
+
+            <p class="eink-card-description-en">
+              Professional linked PDF notebooks for focused digital note-taking.
+            </p>
+
+            <div class="eink-card-actions">
+              <a
+                class="eink-card-link"
+                href="e-ink-collection.html"
+                onclick="event.stopPropagation()"
+              >Details</a>
+
+              <a
+                class="eink-card-link eink-card-link-primary"
+                href="https://liotil.gumroad.com/l/multi-project-book"
+                target="_blank"
+                rel="noopener noreferrer"
+                onclick="event.stopPropagation()"
+              >Buy on Gumroad</a>
+            </div>
+          </div>
+
+          <div class="eink-card-meta">
+            <div class="eink-card-meta-title">
+              Designed for PDF-compatible devices
+            </div>
+
+            <div class="eink-device-list">
+              <span class="eink-device">reMarkable Paper Pro</span>
+              <span class="eink-device">reMarkable 2</span>
+              <span class="eink-device">Kindle Scribe</span>
+              <span class="eink-device">BOOX</span>
+              <span class="eink-device">Supernote</span>
+              <span class="eink-device">Kobo</span>
+              <span class="eink-device">iPad</span>
+              <span class="eink-device">Android</span>
+              <span class="eink-device">Windows</span>
+            </div>
+
+            <div class="eink-card-benefits">
+              <span class="eink-card-benefit">Instant Download</span>
+              <span class="eink-card-benefit">Free Updates</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
       <div class="featured-project-card">
         <h2>GX10 Market Scanner</h2>
         <p>
