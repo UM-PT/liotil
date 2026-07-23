@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LioTil E-Ink Collection – Linked PDF Notebooks</title>
+
+  <meta
+    name="description"
+    content="Professional linked PDF notebooks for reMarkable, Kindle Scribe, BOOX, Supernote, Kobo, iPad, Android and Windows."
+  >
+
+  <link rel="icon" href="logo3.png">
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#ffffff;
+      color:#333;
+    }
+
+    .page{
+      width:100%;
+      min-height:100vh;
+      padding:48px 24px 36px;
+    }
+
+    .site-header{
+      display:flex;
+      justify-content:center;
+      margin-bottom:28px;
+    }
+
+    .logo-link{
+      display:block;
+      width:min(420px, 82vw);
+      line-height:0;
+    }
+
+    .logo{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    .product-main{
+      width:100%;
+      max-width:1040px;
+      margin:0 auto;
+    }
+
+    .product-hero{
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) minmax(420px, 1.15fr);
+      gap:42px;
+      align-items:center;
+      padding:38px;
+      border:1px solid #dfe3ef;
+      border-radius:20px;
+      background:linear-gradient(135deg, #fdfdff 0%, #f5f7fc 100%);
+      box-shadow:0 14px 36px rgba(47,53,111,.10);
+    }
+
+    .product-hero::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:4px;
+      background:linear-gradient(90deg, #2f356f, #7f88bc);
+    }
+
+    .product-label{
+      margin-bottom:12px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:#747ca4;
+    }
+
+    .product-title{
+      margin:0 0 14px;
+      font-size:42px;
+      line-height:1.08;
+      color:#162744;
+    }
+
+    .product-subtitle{
+      margin:0;
+      font-size:20px;
+      line-height:1.45;
+      color:#4f617c;
+    }
+
+    .product-text{
+      margin:18px 0 0;
+      font-size:15px;
+      line-height:1.7;
+      color:#4f4f4f;
+    }
+
+    .product-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:24px;
+    }
+
+    .product-button,
+    .product-button:visited{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:0 18px;
+      border:1px solid #2f356f;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .product-button-primary,
+    .product-button-primary:visited{
+      background:#2f356f;
+      color:#ffffff;
+    }
+
+    .product-button-secondary,
+    .product-button-secondary:visited{
+      background:#ffffff;
+      color:#2f356f;
+    }
+
+    .product-button:hover{
+      transform:translateY(-1px);
+    }
+
+    .product-image-wrap{
+      overflow:hidden;
+      border:1px solid #e1e4ed;
+      border-radius:16px;
+      background:#ffffff;
+      box-shadow:0 10px 28px rgba(0,0,0,.10);
+    }
+
+    .product-image{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    .product-note{
+      margin:14px 0 0;
+      font-size:11px;
+      line-height:1.5;
+      color:#777e9c;
+    }
+
+    .site-footer{
+      margin-top:34px;
+      text-align:center;
+      font-size:12px;
+      line-height:1.6;
+      color:#777;
+    }
+
+    .site-footer a,
+    .site-footer a:visited{
+      color:#777;
+      text-decoration:none;
+    }
+
+    @media (max-width:900px){
+      .page{
+        padding:28px 18px 32px;
+      }
+
+      .product-hero{
+        grid-template-columns:1fr;
+        gap:30px;
+        padding:28px;
+      }
+
+      .product-title{
+        font-size:34px;
+      }
+
+      .product-image-wrap{
+        max-width:680px;
+      }
+    }
+
+    @media (max-width:520px){
+      .product-hero{
+        padding:24px 20px;
+        border-radius:16px;
+      }
+
+      .product-title{
+        font-size:30px;
+      }
+
+      .product-subtitle{
+        font-size:18px;
+      }
+
+      .product-actions{
+        flex-direction:column;
+      }
+
+      .product-button{
+        width:100%;
+      }
+    }
+
+    .product-facts{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:16px;
+      margin-top:24px;
+    }
+
+    .product-fact{
+      min-height:126px;
+      padding:20px;
+      border:1px solid #e1e4ed;
+      border-radius:16px;
+      background:#ffffff;
+      box-shadow:0 8px 22px rgba(0,0,0,.05);
+    }
+
+    .product-fact-value{
+      display:block;
+      margin-bottom:7px;
+      font-size:24px;
+      line-height:1.1;
+      font-weight:700;
+      color:#2f356f;
+    }
+
+    .product-fact-title{
+      display:block;
+      margin-bottom:6px;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      color:#4f617c;
+    }
+
+    .product-fact-text{
+      margin:0;
+      font-size:12px;
+      line-height:1.5;
+      color:#777;
+    }
+
+    @media (max-width:900px){
+      .product-facts{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width:520px){
+      .product-facts{
+        grid-template-columns:1fr;
+      }
+
+      .product-fact{
+        min-height:0;
+      }
+    }
+
+
+    .available-product{
+      margin-top:28px;
+      padding:34px;
+      border:1px solid #dfe3ef;
+      border-radius:20px;
+      background:linear-gradient(135deg, #ffffff 0%, #f8f9fd 100%);
+      box-shadow:0 10px 28px rgba(47,53,111,.07);
+    }
+
+    .available-product-header{
+      margin-bottom:26px;
+    }
+
+    .available-product-badge{
+      display:inline-block;
+      margin-bottom:10px;
+      padding:6px 10px;
+      border:1px solid #d8deec;
+      border-radius:999px;
+      background:#ffffff;
+      color:#6872a8;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+    }
+
+    .available-product-title{
+      margin:0 0 8px;
+      font-size:32px;
+      line-height:1.15;
+      color:#162744;
+    }
+
+    .available-product-subtitle{
+      margin:0;
+      font-size:17px;
+      line-height:1.5;
+      color:#4f617c;
+    }
+
+    .available-product-grid{
+      display:grid;
+      grid-template-columns:minmax(0, 1.15fr) minmax(320px, .85fr);
+      gap:34px;
+      align-items:start;
+    }
+
+    .available-product-text{
+      margin:0 0 16px;
+      font-size:15px;
+      line-height:1.75;
+      color:#4f4f4f;
+    }
+
+    .available-product-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:24px;
+    }
+
+    .available-product-button,
+    .available-product-button:visited{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:0 18px;
+      border:1px solid #2f356f;
+      border-radius:999px;
+      background:#2f356f;
+      color:#ffffff;
+      font-size:13px;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .available-product-button:hover{
+      transform:translateY(-1px);
+    }
+
+    .available-product-panel{
+      padding:24px;
+      border:1px solid #e1e4ed;
+      border-radius:16px;
+      background:#ffffff;
+    }
+
+    .available-product-panel-title{
+      margin:0 0 16px;
+      font-size:17px;
+      color:#162744;
+    }
+
+    .available-product-list{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px 18px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+
+    .available-product-item{
+      position:relative;
+      padding-left:19px;
+      font-size:12px;
+      line-height:1.5;
+      color:#4f617c;
+    }
+
+    .available-product-item::before{
+      content:"✓";
+      position:absolute;
+      left:0;
+      top:0;
+      color:#6872a8;
+      font-weight:700;
+    }
+
+    .available-product-update{
+      margin:20px 0 0;
+      padding-top:16px;
+      border-top:1px solid #e6e8ef;
+      font-size:11px;
+      line-height:1.55;
+      color:#777e9c;
+    }
+
+    @media (max-width:900px){
+      .available-product-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:520px){
+      .available-product{
+        padding:26px 20px;
+        border-radius:16px;
+      }
+
+      .available-product-title{
+        font-size:27px;
+      }
+
+      .available-product-list{
+        grid-template-columns:1fr;
+      }
+
+      .available-product-button{
+        width:100%;
+      }
+    }
+
+
+    .device-section{
+      margin-top:28px;
+      padding:34px;
+      border:1px solid #dfe3ef;
+      border-radius:20px;
+      background:#ffffff;
+      box-shadow:0 10px 28px rgba(47,53,111,.06);
+      text-align:center;
+    }
+
+    .device-section-label{
+      display:inline-block;
+      margin-bottom:10px;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+      color:#747ca4;
+    }
+
+    .device-section-title{
+      margin:0;
+      font-size:30px;
+      line-height:1.2;
+      color:#162744;
+    }
+
+    .device-section-text{
+      max-width:720px;
+      margin:12px auto 0;
+      font-size:14px;
+      line-height:1.7;
+      color:#4f617c;
+    }
+
+    .device-list{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+      margin:26px auto 0;
+      padding:0;
+      list-style:none;
+    }
+
+    .device-item{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:40px;
+      padding:0 15px;
+      border:1px solid #dde2ec;
+      border-radius:999px;
+      background:linear-gradient(135deg, #ffffff 0%, #f7f8fc 100%);
+      color:#2f356f;
+      font-size:12px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .device-note{
+      max-width:760px;
+      margin:22px auto 0;
+      padding-top:18px;
+      border-top:1px solid #e6e8ef;
+      font-size:11px;
+      line-height:1.65;
+      color:#777e9c;
+    }
+
+    @media (max-width:520px){
+      .device-section{
+        padding:26px 20px;
+        border-radius:16px;
+      }
+
+      .device-section-title{
+        font-size:26px;
+      }
+
+      .device-list{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:9px;
+      }
+
+      .device-item{
+        min-height:42px;
+        padding:7px 10px;
+        white-space:normal;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:360px){
+      .device-list{
+        grid-template-columns:1fr;
+      }
+    }
+
+
+    .faq-section{
+      margin-top:28px;
+      padding:34px;
+      border:1px solid #dfe3ef;
+      border-radius:20px;
+      background:linear-gradient(135deg, #ffffff 0%, #f8f9fd 100%);
+      box-shadow:0 10px 28px rgba(47,53,111,.06);
+    }
+
+    .faq-header{
+      max-width:760px;
+      margin:0 auto 26px;
+      text-align:center;
+    }
+
+    .faq-label{
+      display:inline-block;
+      margin-bottom:10px;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+      color:#747ca4;
+    }
+
+    .faq-title{
+      margin:0;
+      font-size:30px;
+      line-height:1.2;
+      color:#162744;
+    }
+
+    .faq-intro{
+      margin:12px auto 0;
+      font-size:14px;
+      line-height:1.7;
+      color:#4f617c;
+    }
+
+    .faq-list{
+      display:grid;
+      gap:12px;
+      max-width:860px;
+      margin:0 auto;
+    }
+
+    .faq-item{
+      overflow:hidden;
+      border:1px solid #e1e4ed;
+      border-radius:14px;
+      background:#ffffff;
+    }
+
+    .faq-question{
+      position:relative;
+      padding:18px 52px 18px 20px;
+      color:#162744;
+      font-size:14px;
+      font-weight:700;
+      line-height:1.45;
+      cursor:pointer;
+      list-style:none;
+    }
+
+    .faq-question::-webkit-details-marker{
+      display:none;
+    }
+
+    .faq-question::after{
+      content:"+";
+      position:absolute;
+      top:50%;
+      right:20px;
+      transform:translateY(-50%);
+      color:#6872a8;
+      font-size:22px;
+      font-weight:400;
+    }
+
+    .faq-item[open] .faq-question::after{
+      content:"−";
+    }
+
+    .faq-answer{
+      padding:0 20px 18px;
+      border-top:1px solid #eef0f5;
+      color:#4f617c;
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    .faq-answer p{
+      margin:16px 0 0;
+    }
+
+    .faq-license-note{
+      margin-top:20px;
+      padding:16px 18px;
+      border:1px solid #e1e4ed;
+      border-radius:12px;
+      background:#ffffff;
+      color:#777e9c;
+      font-size:11px;
+      line-height:1.65;
+      text-align:center;
+    }
+
+    @media (max-width:520px){
+      .faq-section{
+        padding:26px 20px;
+        border-radius:16px;
+      }
+
+      .faq-title{
+        font-size:26px;
+      }
+
+      .faq-question{
+        padding:17px 46px 17px 17px;
+      }
+
+      .faq-question::after{
+        right:17px;
+      }
+
+      .faq-answer{
+        padding:0 17px 17px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <header class="site-header">
+      <a class="logo-link" href="index.html" aria-label="Back to the LioTil homepage">
+        <img src="logo3.png" class="logo" alt="LioTil Logo">
+      </a>
+    </header>
+
+    <main class="product-main">
+
+      <section class="product-hero">
+
+        <div class="product-copy">
+          <div class="product-label">Digital Products · Instant Download</div>
+
+          <h1 class="product-title">LioTil E-Ink Collection</h1>
+
+          <p class="product-subtitle">
+            Professional linked PDF notebooks for structured digital work.
+          </p>
+
+          <p class="product-text">
+            The LioTil E-Ink Collection combines a clean design,
+            internal PDF navigation and structured workspaces
+            for projects, planning and digital notes.
+          </p>
+
+          <p class="product-text">
+            The collection is designed for focused digital note-taking
+            on common PDF-compatible devices and applications.
+          </p>
+
+          <div class="product-actions">
+            <a
+              class="product-button product-button-primary"
+              href="https://liotil.gumroad.com/l/multi-project-book"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on Gumroad
+            </a>
+
+            <a
+              class="product-button product-button-secondary"
+              href="index.html"
+            >
+              Back to homepage
+            </a>
+          </div>
+
+          <p class="product-note">
+            Designed for PDF-compatible devices and applications.
+          </p>
+        </div>
+
+        <div class="product-image-wrap">
+          <img
+            class="product-image"
+            src="assets/eink/lec-001-complete-package-1672x941.png"
+            alt="LioTil Multi Project Book product preview"
+          >
+        </div>
+
+      </section>
+
+
+      <section class="product-facts" aria-label="Product facts">
+
+        <article class="product-fact">
+          <span class="product-fact-value">228</span>
+          <span class="product-fact-title">Pages per edition</span>
+          <p class="product-fact-text">
+            A complete structured notebook in each language edition.
+          </p>
+        </article>
+
+        <article class="product-fact">
+          <span class="product-fact-value">2,684</span>
+          <span class="product-fact-title">Internal PDF links</span>
+          <p class="product-fact-text">
+            Fast navigation between dashboards, projects and note pages.
+          </p>
+        </article>
+
+        <article class="product-fact">
+          <span class="product-fact-value">EN + DE</span>
+          <span class="product-fact-title">Two Dark Editions</span>
+          <p class="product-fact-text">
+            English and German editions are included in the package.
+          </p>
+        </article>
+
+        <article class="product-fact">
+          <span class="product-fact-value">Version 1.x</span>
+          <span class="product-fact-title">Free updates</span>
+          <p class="product-fact-text">
+            Product updates within the purchased Version 1.x series.
+          </p>
+        </article>
+
+      </section>
+
+
+      <section class="available-product">
+
+        <header class="available-product-header">
+          <span class="available-product-badge">Available now</span>
+
+          <h2 class="available-product-title">
+            LioTil Multi Project Book
+          </h2>
+
+          <p class="available-product-subtitle">
+            English &amp; German Dark Editions
+          </p>
+        </header>
+
+        <div class="available-product-grid">
+
+          <div class="available-product-copy">
+            <p class="available-product-text">
+              A professional linked PDF notebook for project planning,
+              meetings, notes and structured documentation.
+              Both language editions are included in the package.
+            </p>
+
+            <p class="available-product-text">
+              A professional linked PDF notebook for project planning,
+              meetings, notes and documentation. The package includes
+              both the English and German Dark Editions.
+            </p>
+
+            <div class="available-product-actions">
+              <a
+                class="available-product-button"
+                href="https://liotil.gumroad.com/l/multi-project-book"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View product on Gumroad
+              </a>
+            </div>
+          </div>
+
+          <aside class="available-product-panel">
+            <h3 class="available-product-panel-title">
+              Included in the package
+            </h3>
+
+            <ul class="available-product-list">
+              <li class="available-product-item">Project Dashboard</li>
+              <li class="available-product-item">Calendar Overview</li>
+              <li class="available-product-item">Meeting Notes</li>
+              <li class="available-product-item">Notes &amp; Free Space</li>
+              <li class="available-product-item">Internal PDF navigation</li>
+              <li class="available-product-item">Instant Download</li>
+              <li class="available-product-item">README in EN &amp; DE</li>
+              <li class="available-product-item">License in EN &amp; DE</li>
+            </ul>
+
+            <p class="available-product-update">
+              Free product updates within the purchased Version 1.x series.
+            </p>
+          </aside>
+
+        </div>
+
+      </section>
+
+
+      <section class="device-section">
+
+        <span class="device-section-label">
+          Flexible PDF workflow
+        </span>
+
+        <h2 class="device-section-title">
+          Designed for PDF-compatible devices and applications
+        </h2>
+
+        <p class="device-section-text">
+          The LioTil E-Ink Collection uses the PDF format and is
+          designed for digital note-taking devices, tablets, computers
+          and suitable PDF applications.
+        </p>
+
+        <p class="device-section-text">
+          The notebooks are designed for use with common devices and
+          applications that support PDF files and internal PDF links.
+        </p>
+
+        <ul class="device-list" aria-label="Designed for these device categories">
+          <li class="device-item">reMarkable Paper Pro</li>
+          <li class="device-item">reMarkable 2</li>
+          <li class="device-item">Kindle Scribe</li>
+          <li class="device-item">BOOX</li>
+          <li class="device-item">Supernote</li>
+          <li class="device-item">Kobo</li>
+          <li class="device-item">iPad</li>
+          <li class="device-item">Android</li>
+          <li class="device-item">Windows</li>
+        </ul>
+
+        <p class="device-note">
+          Device and application features may vary. Internal links,
+          display quality and navigation behavior depend on the PDF
+          software and device being used.
+        </p>
+
+      </section>
+
+
+      <section class="faq-section">
+
+        <header class="faq-header">
+          <span class="faq-label">Questions &amp; answers</span>
+
+          <h2 class="faq-title">
+            Frequently asked questions
+          </h2>
+
+          <p class="faq-intro">
+            Important information about file format, navigation,
+            downloads, devices, updates and licensing.
+          </p>
+        </header>
+
+        <div class="faq-list">
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              Is this a reMarkable template?
+            </summary>
+            <div class="faq-answer">
+              <p>
+                This is a professional linked PDF notebook, not a proprietary
+                reMarkable template file. It can be used on suitable
+                devices and in applications that support PDF files
+                and internal PDF links.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              Do I need a separate app?
+            </summary>
+            <div class="faq-answer">
+              <p>
+                No separate LioTil app is required. You only need a device
+                or application that can open PDF files. Navigation and
+                link behavior may vary depending on the PDF application.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              Are internal links included?
+            </summary>
+            <div class="faq-answer">
+              <p>
+                Yes. Each language edition contains 2,684 internal PDF links
+                for navigation between the start page, calendar,
+                project dashboards, meeting pages and note pages.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              Which language editions are included?
+            </summary>
+            <div class="faq-answer">
+              <p>
+                The package includes both the English Dark Edition and
+                the German Dark Edition. Each edition contains
+                228 PDF pages.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              How do I receive the files?
+            </summary>
+            <div class="faq-answer">
+              <p>
+                After purchasing through Gumroad, the product files are
+                available as a digital download. The package also includes
+                README and license information in English and German.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              Are product updates included?
+            </summary>
+            <div class="faq-answer">
+              <p>
+                Yes. Free product updates within the purchased Version 1.x
+                series are included. Future major versions may be
+                offered separately.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              Can I use the notebook on several devices?
+            </summary>
+            <div class="faq-answer">
+              <p>
+                Yes. The single-user license allows you to use the notebook
+                on your own devices. The files may not be shared with
+                other people, colleagues or third parties, or distributed
+                for use by multiple users.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              Can the notebook be used for business work?
+            </summary>
+            <div class="faq-answer">
+              <p>
+                The single-user license may be used for your own professional
+                work. Sharing the files within a company or with multiple
+                users is not included. Business packages with a company
+                logo and license number can be requested separately.
+              </p>
+            </div>
+          </details>
+
+        </div>
+
+        <p class="faq-license-note">
+          In case of doubt, the license terms included with the
+          purchased product package always apply.
+        </p>
+
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div>Website under construction</div>
+      <div>
+        <a href="index.html">© 2026 LioTil</a> ·
+        <a href="imprint.html">Imprint</a> ·
+        <a href="privacy.html">Privacy</a> ·
+        <a href="guides.html">Guides</a> ·
+        <a href="contact.html">Contact</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+
+</html>
