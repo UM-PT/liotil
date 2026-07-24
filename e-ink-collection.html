@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>LioTil E-Ink Collection – Linked PDF Notebooks</title>
+  <title>LioTil E-Ink Collection – Verlinkte PDF-Notizbücher</title>
 
   <meta
     name="description"
-    content="Professional linked PDF notebooks for reMarkable, Kindle Scribe, BOOX, Supernote, Kobo, iPad, Android and Windows."
+    content="Professionell verlinkte PDF-Notizbücher für reMarkable, Kindle Scribe, BOOX, Supernote, Kobo, iPad, Android und Windows."
   >
 
   <link rel="icon" href="logo3.png">
@@ -672,6 +672,130 @@
       }
     }
 
+
+    .language-switch{
+      width:100%;
+      max-width:1040px;
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      gap:8px;
+      margin:-12px auto 20px;
+      font-size:12px;
+      color:#8b90a6;
+    }
+
+    .language-link,
+    .language-link:visited{
+      min-width:34px;
+      padding:6px 9px;
+      border:1px solid #dde2ec;
+      border-radius:999px;
+      background:#ffffff;
+      color:#4f617c;
+      font-weight:700;
+      text-align:center;
+      text-decoration:none;
+    }
+
+    .language-link:hover{
+      border-color:#bbc4dc;
+      color:#2f356f;
+    }
+
+    .language-link.is-active,
+    .language-link.is-active:visited{
+      border-color:#2f356f;
+      background:#2f356f;
+      color:#ffffff;
+    }
+
+    @media (max-width:520px){
+      .language-switch{
+        justify-content:center;
+        margin:-6px auto 18px;
+      }
+    }
+
+
+    /* Slim sticky navigation bar */
+    .page{
+      padding-top:0;
+    }
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      width:100vw;
+      margin:0 0 24px calc(50% - 50vw);
+      padding:8px 24px;
+      background:rgba(255,255,255,.97);
+      border-bottom:1px solid rgba(47,53,111,.10);
+      box-shadow:0 5px 16px rgba(47,53,111,.06);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+
+    .site-header-inner{
+      width:100%;
+      max-width:1040px;
+      min-height:70px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .site-header .logo-link{
+      flex:0 0 auto;
+      width:190px;
+      max-width:48vw;
+      margin:0;
+    }
+
+    .site-header .logo{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    .site-header .language-switch{
+      flex:0 0 auto;
+      width:auto;
+      max-width:none;
+      margin:0;
+      justify-content:flex-end;
+    }
+
+    @media (max-width:520px){
+      .site-header{
+        margin-bottom:18px;
+        padding:7px 16px;
+      }
+
+      .site-header-inner{
+        min-height:58px;
+        gap:12px;
+      }
+
+      .site-header .logo-link{
+        width:155px;
+        max-width:56vw;
+      }
+
+      .site-header .language-switch{
+        gap:5px;
+        font-size:11px;
+      }
+
+      .site-header .language-link{
+        min-width:31px;
+        padding:5px 7px;
+      }
+    }
+
   </style>
 </head>
 
@@ -679,9 +803,26 @@
   <div class="page">
 
     <header class="site-header">
-      <a class="logo-link" href="index.html" aria-label="Back to the LioTil homepage">
-        <img src="logo3.png" class="logo" alt="LioTil Logo">
+      <div class="site-header-inner">
+        <a class="logo-link" href="index.html" aria-label="Zur LioTil-Startseite">
+        <img src="assets/branding/liotil-logo-tight.png" class="logo" alt="LioTil Logo">
       </a>
+
+        <nav class="language-switch" aria-label="Sprachauswahl">
+      <a
+        class="language-link is-active"
+        href="e-ink-collection.html"
+        lang="de"
+        aria-current="page"
+      >DE</a>
+      <span aria-hidden="true">·</span>
+      <a
+        class="language-link"
+        href="e-ink-collection-en.html"
+        lang="en"
+      >EN</a>
+    </nav>
+      </div>
     </header>
 
     <main class="product-main">
@@ -689,23 +830,20 @@
       <section class="product-hero">
 
         <div class="product-copy">
-          <div class="product-label">Digital Products · Instant Download</div>
+          <div class="product-label">Digitale Produkte · Sofort-Download</div>
 
           <h1 class="product-title">LioTil E-Ink Collection</h1>
 
           <p class="product-subtitle">
-            Professional linked PDF notebooks for structured digital work.
+            Professionell verlinkte PDF-Notizbücher für strukturiertes digitales Arbeiten.
           </p>
 
           <p class="product-text">
-            The LioTil E-Ink Collection combines a clean design,
-            internal PDF navigation and structured workspaces
-            for projects, planning and digital notes.
+            Die LioTil E-Ink Collection verbindet klares Design, interne PDF-Navigation und strukturierte Arbeitsbereiche für Projekte, Planung und digitale Notizen.
           </p>
 
           <p class="product-text">
-            The collection is designed for focused digital note-taking
-            on common PDF-compatible devices and applications.
+            Die Collection ist für konzentriertes digitales Arbeiten auf gängigen PDF-kompatiblen Geräten und in geeigneten Anwendungen konzipiert.
           </p>
 
           <div class="product-actions">
@@ -715,19 +853,19 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              View on Gumroad
+              Auf Gumroad ansehen
             </a>
 
             <a
               class="product-button product-button-secondary"
               href="index.html"
             >
-              Back to homepage
+              Zur Startseite
             </a>
           </div>
 
           <p class="product-note">
-            Designed for PDF-compatible devices and applications.
+            Für PDF-kompatible Geräte und Anwendungen entwickelt.
           </p>
         </div>
 
@@ -735,44 +873,44 @@
           <img
             class="product-image"
             src="assets/eink/lec-001-complete-package-1672x941.png"
-            alt="LioTil Multi Project Book product preview"
+            alt="Produktvorschau des LioTil Multi Project Book"
           >
         </div>
 
       </section>
 
 
-      <section class="product-facts" aria-label="Product facts">
+      <section class="product-facts" aria-label="Produktinformationen">
 
         <article class="product-fact">
           <span class="product-fact-value">228</span>
-          <span class="product-fact-title">Pages per edition</span>
+          <span class="product-fact-title">Seiten je Edition</span>
           <p class="product-fact-text">
-            A complete structured notebook in each language edition.
+            Ein vollständiges strukturiertes Notizbuch in jeder Sprachversion.
           </p>
         </article>
 
         <article class="product-fact">
           <span class="product-fact-value">2,684</span>
-          <span class="product-fact-title">Internal PDF links</span>
+          <span class="product-fact-title">Interne PDF-Links</span>
           <p class="product-fact-text">
-            Fast navigation between dashboards, projects and note pages.
+            Schnelle Navigation zwischen Dashboards, Projekten und Notizseiten.
           </p>
         </article>
 
         <article class="product-fact">
           <span class="product-fact-value">EN + DE</span>
-          <span class="product-fact-title">Two Dark Editions</span>
+          <span class="product-fact-title">Zwei Dark Editions</span>
           <p class="product-fact-text">
-            English and German editions are included in the package.
+            Die englische und die deutsche Edition sind im Paket enthalten.
           </p>
         </article>
 
         <article class="product-fact">
           <span class="product-fact-value">Version 1.x</span>
-          <span class="product-fact-title">Free updates</span>
+          <span class="product-fact-title">Kostenlose Updates</span>
           <p class="product-fact-text">
-            Product updates within the purchased Version 1.x series.
+            Produktaktualisierungen innerhalb der gekauften Versionsreihe 1.x.
           </p>
         </article>
 
@@ -782,14 +920,14 @@
       <section class="available-product">
 
         <header class="available-product-header">
-          <span class="available-product-badge">Available now</span>
+          <span class="available-product-badge">Jetzt erhältlich</span>
 
           <h2 class="available-product-title">
             LioTil Multi Project Book
           </h2>
 
           <p class="available-product-subtitle">
-            English &amp; German Dark Editions
+            Englische &amp; deutsche Dark Editions
           </p>
         </header>
 
@@ -797,15 +935,11 @@
 
           <div class="available-product-copy">
             <p class="available-product-text">
-              A professional linked PDF notebook for project planning,
-              meetings, notes and structured documentation.
-              Both language editions are included in the package.
+              Ein professionell verlinktes PDF-Notizbuch für Projektplanung, Besprechungen, Notizen und strukturierte Dokumentation. Beide Sprachversionen sind im Paket enthalten.
             </p>
 
             <p class="available-product-text">
-              A professional linked PDF notebook for project planning,
-              meetings, notes and documentation. The package includes
-              both the English and German Dark Editions.
+              Das Paket enthält die englische und die deutsche Dark Edition und steht nach dem Kauf direkt als digitaler Download bereit.
             </p>
 
             <div class="available-product-actions">
@@ -815,29 +949,29 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                View product on Gumroad
+                Produkt auf Gumroad ansehen
               </a>
             </div>
           </div>
 
           <aside class="available-product-panel">
             <h3 class="available-product-panel-title">
-              Included in the package
+              Im Paket enthalten
             </h3>
 
             <ul class="available-product-list">
-              <li class="available-product-item">Project Dashboard</li>
-              <li class="available-product-item">Calendar Overview</li>
-              <li class="available-product-item">Meeting Notes</li>
-              <li class="available-product-item">Notes &amp; Free Space</li>
-              <li class="available-product-item">Internal PDF navigation</li>
-              <li class="available-product-item">Instant Download</li>
-              <li class="available-product-item">README in EN &amp; DE</li>
-              <li class="available-product-item">License in EN &amp; DE</li>
+              <li class="available-product-item">Projekt-Dashboard</li>
+              <li class="available-product-item">Kalenderübersicht</li>
+              <li class="available-product-item">Besprechungsnotizen</li>
+              <li class="available-product-item">Notizen &amp; freier Bereich</li>
+              <li class="available-product-item">Interne PDF-Navigation</li>
+              <li class="available-product-item">Sofort-Download</li>
+              <li class="available-product-item">README auf Deutsch &amp; Englisch</li>
+              <li class="available-product-item">Lizenz auf Deutsch &amp; Englisch</li>
             </ul>
 
             <p class="available-product-update">
-              Free product updates within the purchased Version 1.x series.
+              Kostenlose Produktaktualisierungen innerhalb der gekauften Versionsreihe 1.x.
             </p>
           </aside>
 
@@ -849,25 +983,22 @@
       <section class="device-section">
 
         <span class="device-section-label">
-          Flexible PDF workflow
+          Flexibler PDF-Workflow
         </span>
 
         <h2 class="device-section-title">
-          Designed for PDF-compatible devices and applications
+          Für PDF-kompatible Geräte und Anwendungen entwickelt
         </h2>
 
         <p class="device-section-text">
-          The LioTil E-Ink Collection uses the PDF format and is
-          designed for digital note-taking devices, tablets, computers
-          and suitable PDF applications.
+          Die LioTil E-Ink Collection verwendet das PDF-Format und ist für digitale Notizgeräte, Tablets, Computer und geeignete PDF-Anwendungen konzipiert.
         </p>
 
         <p class="device-section-text">
-          The notebooks are designed for use with common devices and
-          applications that support PDF files and internal PDF links.
+          Die Notizbücher sind für gängige Geräte und Anwendungen ausgelegt, die PDF-Dateien und interne PDF-Links unterstützen.
         </p>
 
-        <ul class="device-list" aria-label="Designed for these device categories">
+        <ul class="device-list" aria-label="Für diese Gerätekategorien entwickelt">
           <li class="device-item">reMarkable Paper Pro</li>
           <li class="device-item">reMarkable 2</li>
           <li class="device-item">Kindle Scribe</li>
@@ -880,9 +1011,7 @@
         </ul>
 
         <p class="device-note">
-          Device and application features may vary. Internal links,
-          display quality and navigation behavior depend on the PDF
-          software and device being used.
+          Funktionen können je nach Gerät und Anwendung abweichen. Interne Links, Darstellungsqualität und Navigation hängen von der verwendeten PDF-Software und dem jeweiligen Gerät ab.
         </p>
 
       </section>
@@ -891,15 +1020,14 @@
       <section class="faq-section">
 
         <header class="faq-header">
-          <span class="faq-label">Questions &amp; answers</span>
+          <span class="faq-label">Fragen &amp; Antworten</span>
 
           <h2 class="faq-title">
-            Frequently asked questions
+            Häufig gestellte Fragen
           </h2>
 
           <p class="faq-intro">
-            Important information about file format, navigation,
-            downloads, devices, updates and licensing.
+            Wichtige Informationen zu Dateiformat, Navigation, Download, Geräten, Updates und Lizenz.
           </p>
         </header>
 
@@ -907,107 +1035,88 @@
 
           <details class="faq-item">
             <summary class="faq-question">
-              Is this a reMarkable template?
+              Ist dies ein reMarkable-Template?
             </summary>
             <div class="faq-answer">
               <p>
-                This is a professional linked PDF notebook, not a proprietary
-                reMarkable template file. It can be used on suitable
-                devices and in applications that support PDF files
-                and internal PDF links.
+                Es handelt sich um ein professionell verlinktes PDF-Notizbuch und nicht um ein proprietäres reMarkable-Templateformat. Es kann auf geeigneten Geräten und in Anwendungen verwendet werden, die PDF-Dateien und interne PDF-Links unterstützen.
               </p>
             </div>
           </details>
 
           <details class="faq-item">
             <summary class="faq-question">
-              Do I need a separate app?
+              Benötige ich eine zusätzliche App?
             </summary>
             <div class="faq-answer">
               <p>
-                No separate LioTil app is required. You only need a device
-                or application that can open PDF files. Navigation and
-                link behavior may vary depending on the PDF application.
+                Eine spezielle LioTil-App ist nicht erforderlich. Du benötigst nur ein Gerät oder eine Anwendung, die PDF-Dateien öffnen kann. Navigation und Linkverhalten können je nach PDF-Anwendung unterschiedlich ausfallen.
               </p>
             </div>
           </details>
 
           <details class="faq-item">
             <summary class="faq-question">
-              Are internal links included?
+              Sind interne Links enthalten?
             </summary>
             <div class="faq-answer">
               <p>
-                Yes. Each language edition contains 2,684 internal PDF links
-                for navigation between the start page, calendar,
-                project dashboards, meeting pages and note pages.
+                Ja. Jede Sprachversion enthält 2.684 interne PDF-Links für die Navigation zwischen Startseite, Kalender, Projektübersichten, Besprechungsseiten und Notizseiten.
               </p>
             </div>
           </details>
 
           <details class="faq-item">
             <summary class="faq-question">
-              Which language editions are included?
+              Welche Sprachversionen sind enthalten?
             </summary>
             <div class="faq-answer">
               <p>
-                The package includes both the English Dark Edition and
-                the German Dark Edition. Each edition contains
-                228 PDF pages.
+                Das Paket enthält sowohl die English Dark Edition als auch die German Dark Edition. Jede Edition umfasst 228 PDF-Seiten.
               </p>
             </div>
           </details>
 
           <details class="faq-item">
             <summary class="faq-question">
-              How do I receive the files?
+              Wie erhalte ich die Dateien?
             </summary>
             <div class="faq-answer">
               <p>
-                After purchasing through Gumroad, the product files are
-                available as a digital download. The package also includes
-                README and license information in English and German.
+                Nach dem Kauf über Gumroad stehen die Produktdateien als digitaler Download zur Verfügung. Das Paket enthält außerdem README- und Lizenzinformationen auf Deutsch und Englisch.
               </p>
             </div>
           </details>
 
           <details class="faq-item">
             <summary class="faq-question">
-              Are product updates included?
+              Sind Produktupdates enthalten?
             </summary>
             <div class="faq-answer">
               <p>
-                Yes. Free product updates within the purchased Version 1.x
-                series are included. Future major versions may be
-                offered separately.
+                Ja. Kostenlose Produktaktualisierungen innerhalb der gekauften Versionsreihe 1.x sind enthalten. Spätere neue Hauptversionen können separat angeboten werden.
               </p>
             </div>
           </details>
 
           <details class="faq-item">
             <summary class="faq-question">
-              Can I use the notebook on several devices?
+              Kann ich das Notizbuch auf mehreren Geräten verwenden?
             </summary>
             <div class="faq-answer">
               <p>
-                Yes. The single-user license allows you to use the notebook
-                on your own devices. The files may not be shared with
-                other people, colleagues or third parties, or distributed
-                for use by multiple users.
+                Ja. Die Einzellizenz erlaubt Dir die Nutzung des Notizbuchs auf Deinen eigenen Geräten. Die Dateien dürfen jedoch nicht an andere Personen, Kollegen oder Dritte weitergegeben oder für mehrere Nutzer verteilt werden.
               </p>
             </div>
           </details>
 
           <details class="faq-item">
             <summary class="faq-question">
-              Can the notebook be used for business work?
+              Kann das Notizbuch beruflich verwendet werden?
             </summary>
             <div class="faq-answer">
               <p>
-                The single-user license may be used for your own professional
-                work. Sharing the files within a company or with multiple
-                users is not included. Business packages with a company
-                logo and license number can be requested separately.
+                Die Einzellizenz darf für die eigene berufliche Arbeit verwendet werden. Eine Weitergabe innerhalb eines Unternehmens oder an mehrere Nutzer ist nicht enthalten. Firmenpakete mit Firmenlogo und Lizenznummer können separat angefragt werden.
               </p>
             </div>
           </details>
@@ -1015,8 +1124,7 @@
         </div>
 
         <p class="faq-license-note">
-          In case of doubt, the license terms included with the
-          purchased product package always apply.
+          Im Zweifel gelten immer die Lizenzbedingungen, die dem gekauften Produktpaket beiliegen.
         </p>
 
       </section>
@@ -1024,13 +1132,13 @@
     </main>
 
     <footer class="site-footer">
-      <div>Website under construction</div>
+      <div>Website im Aufbau</div>
       <div>
         <a href="index.html">© 2026 LioTil</a> ·
-        <a href="imprint.html">Imprint</a> ·
-        <a href="privacy.html">Privacy</a> ·
-        <a href="guides.html">Guides</a> ·
-        <a href="contact.html">Contact</a>
+        <a href="imprint.html">Impressum</a> ·
+        <a href="privacy.html">Datenschutz</a> ·
+        <a href="guides.html">Anleitungen</a> ·
+        <a href="contact.html">Kontakt</a>
       </div>
     </footer>
 
