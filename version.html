@@ -20,73 +20,42 @@ html,body{
 }
 body{
   display:flex;
-  justify-content:center;
+  flex-direction:column;
+  justify-content:flex-start;
   align-items:center;
   text-align:center;
-  padding:40px 20px 160px;
+  min-height:100vh;
+  padding:0 20px 28px;
   box-sizing:border-box;
-  overflow:hidden;
+  overflow-x:hidden;
+  overflow-y:auto;
 }
 
-.hero{
-  position:fixed;
-  top:230px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  z-index:10;
-}
 
-.logo-wrap{
-  position:relative;
-  width:520px;
-  max-width:90vw;
-  margin:0 auto 4px;
-  line-height:0;
-}
 
-.logo{
-  display:block;
-  width:100%;
-  max-width:none;
-  margin:0;
-}
 
-.logo-home-link,
-.logo-home-link:visited,
-.logo-home-link:hover,
-.logo-home-link:active{
-  position:absolute;
-  left:50%;
-  top:52%;
-  transform:translate(-50%,-50%);
-  width:min(360px,70%);
-  height:96px;
-  display:block;
-  padding:0;
-  margin:0;
-  border:0 !important;
-  text-decoration:none !important;
-  background:transparent;
-}
+
+
+
+
 
 .tagline{
   display:none !important;
 }
 
 .footer-note{
-  position:fixed;
-  bottom:24px;
-  left:50%;
-  transform:translateX(-50%);
+  position:static;
+  bottom:auto;
+  left:auto;
+  transform:none;
   width:100%;
+  margin-top:auto;
+  padding:28px 0 0;
   text-align:center;
   font-size:12px;
   color:#8e8e8e;
   line-height:1.7;
-  z-index:10;
+  z-index:auto;
 }
 
 .footer-links{
@@ -102,34 +71,33 @@ body{
 }
 
 .subpage-content{
-  position:fixed;
-  left:50%;
-  transform:translateX(-50%);
-  top:560px;
-  bottom:70px;
-  width:min(760px, calc(100% - 48px));
-  max-width:760px;
+  position:static;
+  left:auto;
+  transform:none;
+  top:auto;
+  bottom:auto;
+  width:100%;
+  max-width:980px;
+  margin:0 auto 48px;
   padding:0 24px;
   box-sizing:border-box;
-  overflow:hidden;
+  overflow:visible;
 }
 
 .subpage-card{
   width:100%;
-  max-width:760px;
-  height:100%;
+  max-width:860px;
+  height:auto;
   min-height:0;
   margin:0 auto;
-  border:none;
-  border-radius:0;
-  background:transparent;
-  box-shadow:none;
-  padding:0 18px 0 0;
+  box-sizing:border-box;
+  border:1px solid #000000;
+  border-radius:22px;
+  background:#E8EEF7;
+  box-shadow:0 18px 48px rgba(0,0,0,.16);
+  padding:40px 46px 34px;
   text-align:left;
-  overflow-y:auto;
-  overflow-x:hidden;
-  scrollbar-width:thin;
-  scrollbar-color:rgba(15,27,45,.28) transparent;
+  overflow:visible;
 }
 
 .subpage-card::-webkit-scrollbar{
@@ -231,23 +199,24 @@ body{
   }
 
   .subpage-content{
-    position:fixed;
-    left:50%;
-    transform:translateX(-50%);
-    top:470px;
-    bottom:70px;
-    width:min(760px, calc(100% - 36px));
-    max-width:760px;
+    position:static;
+    left:auto;
+    transform:none;
+    top:auto;
+    bottom:auto;
+    width:100%;
+    max-width:980px;
+    margin:0 auto 36px;
     padding:0 18px;
     box-sizing:border-box;
-    overflow:hidden;
-  }
+    overflow:visible;
+}
 
   .subpage-card{
-    height:100%;
+    height:auto;
     min-height:0;
-    padding:0 10px 0 0;
-  }
+    padding:34px 32px 30px;
+}
 
   .subpage-title{
     font-size: 18px;
@@ -267,20 +236,97 @@ body{
   opacity:.68;
 }
 
+
+/* LioTil version standard layout */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  width:100vw;
+  margin:0 0 24px calc(50% - 50vw);
+  padding:8px 24px;
+  background:rgba(255,255,255,.97);
+  border-bottom:1px solid rgba(47,53,111,.10);
+  box-shadow:0 5px 16px rgba(47,53,111,.06);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.site-header-inner{
+  width:100%;
+  max-width:860px;
+  min-height:70px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+}
+
+.site-header .logo-link{
+  display:block;
+  flex:0 0 auto;
+  width:190px;
+  max-width:48vw;
+  margin:0 0 0 10px;
+  line-height:0;
+  text-decoration:none;
+  border:0;
+}
+
+.site-header .logo{
+  display:block;
+  width:100%;
+  height:auto;
+  max-width:none;
+  margin:0;
+}
+
+.subpage-section-title,
+.subpage-text{
+  max-width:700px;
+}
+
+@media (max-width:520px){
+  body{
+    padding:0 16px 28px;
+  }
+
+  .site-header{
+    margin-bottom:18px;
+    padding:7px 16px;
+  }
+
+  .site-header-inner{
+    min-height:58px;
+  }
+
+  .site-header .logo-link{
+    width:155px;
+    max-width:56vw;
+    margin-left:0;
+  }
+
+  .subpage-content{
+    padding:0;
+  }
+
+  .subpage-card{
+    padding:28px 24px;
+  }
+}
 </style>
 </head>
 <body>
   <div class="page">
-    <div class="hero">
-      <div class="logo-wrap">
-        <img src="logo3.png" class="logo" alt="LioTil Logo">
-        <a class="logo-home-link" href="index.html" aria-label="Back to homepage"></a>
-      </div>
-      <div class="tagline">
-        Innovation · AI · Technology<br>
-        Official Website
-      </div>
+    <header class="site-header">
+    <div class="site-header-inner">
+      <a class="logo-link" href="index.html" aria-label="Back to homepage">
+        <img src="assets/branding/liotil-logo-tight.png"
+             class="logo"
+             alt="LioTil Logo">
+      </a>
     </div>
+  </header>
 
     <main class="subpage-content">
       <section class="subpage-card">
@@ -291,7 +337,7 @@ body{
           <h2 class="subpage-section-title">Current version / Aktuelle Version</h2>
           
           <p class="subpage-text">
-            LioTil Website ............ v0.026<br>
+            LioTil Website ............ v0.027<br>
             GX10 Market Scanner page .. v0.025<br>
             reMarkable Desk page ...... v0.025
           </p>
@@ -338,7 +384,7 @@ body{
 
     <div class="footer-note">
       <div>Website under construction</div>
-      <div class="footer-links"><a href="index.html">© 2026 LioTil</a> · <a href="imprint.html">Imprint</a> · <a href="privacy.html">Privacy</a> · <a href="guides.html">Guides</a> · <a href="contact.html">Contact</a> · <a href="version.html" class="footer-version-link">v0.026</a></div>
+      <div class="footer-links"><a href="index.html">© 2026 LioTil</a> · <a href="imprint.html">Imprint</a> · <a href="privacy.html">Privacy</a> · <a href="guides.html">Guides</a> · <a href="contact.html">Contact</a> · <a href="version.html" class="footer-version-link">v0.027</a></div>
     </div>
   </div>
 </body>
