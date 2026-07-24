@@ -4133,7 +4133,7 @@
 
       <section id="beta" class="section card">
         <h2>Would you like to test reMarkable Desk?</h2>
-        <p>We are preparing an early test version and are looking for users who are willing to give feedback.</p>
+        <p>The Windows beta version is being prepared now. Interested users can request access by email. After a short review, selected Windows testers will receive the test package and instructions directly by email. Mac and Linux users can also register their interest for later test phases.</p>
         <ul>
           <li>Name</li>
           <li>Email</li>
@@ -4145,9 +4145,9 @@
           <li>Which feature would be most important to you?</li>
         </ul>
         <div class="actions">
-          <a class="btn primary" id="betaMailButton" href="#">Request early access by email</a>
+          <a class="btn primary" id="betaMailButton" href="mailto:beta@liotil.com?subject=Beta%20test%20request%20-%20reMarkable%20Desk">Request beta access by email</a>
         </div>
-        <p style="font-size:14px;color:#555b66;margin-top:10px;">The button opens a prepared email to info@liotil.com. You only need to add your details and send it.<br>If no email window opens, please copy the questions above into a new email to info@liotil.com and answer them there.</p>
+        <p style="font-size:14px;color:#555b66;margin-top:10px;">The button opens a prepared email to <a href="mailto:beta@liotil.com">beta@liotil.com</a>. Please add your details and send it. After a short review, selected Windows testers will receive the beta package and instructions by email.<br>If no email window opens, please copy the questions above into a new email to <a href="mailto:beta@liotil.com">beta@liotil.com</a> and answer them there.</p>
       </section>
 
       <section class="section faq">
@@ -4161,7 +4161,7 @@
         </div>
         <div class="card">
           <h3>Can I download it already?</h3>
-          <p>Not as a public download yet. A early access interest list is the safer first step so early tests can be handled in a controlled way.</p>
+          <p>Not as a public download yet. Interested users can request beta access by email. After a short review, selected Windows testers will receive the test package and instructions directly from LioTil.</p>
         </div>
         <div class="card">
           <h3>Does it run on Mac?</h3>
@@ -4187,12 +4187,12 @@
   button.addEventListener("click", function (event) {
     event.preventDefault();
 
-    const subject = "Early access request reMarkable Desk";
+    const subject = "Beta test request - reMarkable Desk";
 
     const body = [
       "Hello LioTil Team,",
       "",
-      "I am interested in reMarkable Desk and would like to join the early access interest list.",
+      "I am interested in reMarkable Desk and would like to apply as a beta tester.",
       "",
       "My details:",
       "",
@@ -4226,7 +4226,7 @@
     ].join("\r\n");
 
     window.location.href =
-      "mailto:info@liotil.com?subject=" +
+      "mailto:beta@liotil.com?subject=" +
       encodeURIComponent(subject) +
       "&body=" +
       encodeURIComponent(body);
