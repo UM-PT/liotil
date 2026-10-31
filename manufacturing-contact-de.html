@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Projektkontakt – Manufacturing Workflow Research | LioTil</title>
+
+  <meta
+    name="description"
+    content="Kontakt zum Projekt Manufacturing Workflow Research über partners@liotil.com."
+  >
+
+  <link rel="icon" href="logo3.png">
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#ffffff;
+      color:#333;
+    }
+
+    .page{
+      width:100%;
+      min-height:100vh;
+      padding:48px 24px 36px;
+    }
+
+    .site-header{
+      display:flex;
+      justify-content:center;
+      margin-bottom:28px;
+    }
+
+    .logo-link{
+      display:block;
+      width:min(420px, 82vw);
+      line-height:0;
+    }
+
+    .logo{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    .product-main{
+      width:100%;
+      max-width:1040px;
+      margin:0 auto;
+    }
+
+    .product-hero{
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) minmax(420px, 1.15fr);
+      gap:42px;
+      align-items:center;
+      padding:38px;
+      border:1px solid #dfe3ef;
+      border-radius:20px;
+      background:linear-gradient(135deg, #fdfdff 0%, #f5f7fc 100%);
+      box-shadow:0 14px 36px rgba(47,53,111,.10);
+    }
+
+    .product-hero::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:4px;
+      background:linear-gradient(90deg, #2f356f, #7f88bc);
+    }
+
+    .product-label{
+      margin-bottom:12px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:#747ca4;
+    }
+
+    .product-title{
+      margin:0 0 14px;
+      font-size:42px;
+      line-height:1.08;
+      color:#162744;
+    }
+
+    .product-subtitle{
+      margin:0;
+      font-size:20px;
+      line-height:1.45;
+      color:#4f617c;
+    }
+
+    .product-text{
+      margin:18px 0 0;
+      font-size:15px;
+      line-height:1.7;
+      color:#4f4f4f;
+    }
+
+    .product-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:24px;
+    }
+
+    .product-button,
+    .product-button:visited{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:0 18px;
+      border:1px solid #2f356f;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .product-button-primary,
+    .product-button-primary:visited{
+      background:#2f356f;
+      color:#ffffff;
+    }
+
+    .product-button-secondary,
+    .product-button-secondary:visited{
+      background:#ffffff;
+      color:#2f356f;
+    }
+
+    .product-button:hover{
+      transform:translateY(-1px);
+    }
+
+    .product-image-wrap{
+      overflow:hidden;
+      border:1px solid #e1e4ed;
+      border-radius:16px;
+      background:#ffffff;
+      box-shadow:0 10px 28px rgba(0,0,0,.10);
+    }
+
+    .product-image{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    .product-note{
+      margin:14px 0 0;
+      font-size:11px;
+      line-height:1.5;
+      color:#777e9c;
+    }
+
+    .site-footer{
+      margin-top:34px;
+      text-align:center;
+      font-size:12px;
+      line-height:1.6;
+      color:#777;
+    }
+
+    .site-footer a,
+    .site-footer a:visited{
+      color:#777;
+      text-decoration:none;
+    }
+
+    @media (max-width:900px){
+      .page{
+        padding:28px 18px 32px;
+      }
+
+      .product-hero{
+        grid-template-columns:1fr;
+        gap:30px;
+        padding:28px;
+      }
+
+      .product-title{
+        font-size:34px;
+      }
+
+      .product-image-wrap{
+        max-width:680px;
+      }
+    }
+
+    @media (max-width:520px){
+      .product-hero{
+        padding:24px 20px;
+        border-radius:16px;
+      }
+
+      .product-title{
+        font-size:30px;
+      }
+
+      .product-subtitle{
+        font-size:18px;
+      }
+
+      .product-actions{
+        flex-direction:column;
+      }
+
+      .product-button{
+        width:100%;
+      }
+    }
+
+    .product-facts{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:16px;
+      margin-top:24px;
+    }
+
+    .product-fact{
+      min-height:126px;
+      padding:20px;
+      border:1px solid #e1e4ed;
+      border-radius:16px;
+      background:#ffffff;
+      box-shadow:0 8px 22px rgba(0,0,0,.05);
+    }
+
+    .product-fact-value{
+      display:block;
+      margin-bottom:7px;
+      font-size:24px;
+      line-height:1.1;
+      font-weight:700;
+      color:#2f356f;
+    }
+
+    .product-fact-title{
+      display:block;
+      margin-bottom:6px;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      color:#4f617c;
+    }
+
+    .product-fact-text{
+      margin:0;
+      font-size:12px;
+      line-height:1.5;
+      color:#777;
+    }
+
+    @media (max-width:900px){
+      .product-facts{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width:520px){
+      .product-facts{
+        grid-template-columns:1fr;
+      }
+
+      .product-fact{
+        min-height:0;
+      }
+    }
+
+
+    .available-product{
+      margin-top:28px;
+      padding:34px;
+      border:1px solid #dfe3ef;
+      border-radius:20px;
+      background:linear-gradient(135deg, #ffffff 0%, #f8f9fd 100%);
+      box-shadow:0 10px 28px rgba(47,53,111,.07);
+    }
+
+    .available-product-header{
+      margin-bottom:26px;
+    }
+
+    .available-product-badge{
+      display:inline-block;
+      margin-bottom:10px;
+      padding:6px 10px;
+      border:1px solid #d8deec;
+      border-radius:999px;
+      background:#ffffff;
+      color:#6872a8;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+    }
+
+    .available-product-title{
+      margin:0 0 8px;
+      font-size:32px;
+      line-height:1.15;
+      color:#162744;
+    }
+
+    .available-product-subtitle{
+      margin:0;
+      font-size:17px;
+      line-height:1.5;
+      color:#4f617c;
+    }
+
+    .available-product-grid{
+      display:grid;
+      grid-template-columns:minmax(0, 1.15fr) minmax(320px, .85fr);
+      gap:34px;
+      align-items:start;
+    }
+
+    .available-product-text{
+      margin:0 0 16px;
+      font-size:15px;
+      line-height:1.75;
+      color:#4f4f4f;
+    }
+
+    .available-product-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:24px;
+    }
+
+    .available-product-button,
+    .available-product-button:visited{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:0 18px;
+      border:1px solid #2f356f;
+      border-radius:999px;
+      background:#2f356f;
+      color:#ffffff;
+      font-size:13px;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .available-product-button:hover{
+      transform:translateY(-1px);
+    }
+
+    .available-product-panel{
+      padding:24px;
+      border:1px solid #e1e4ed;
+      border-radius:16px;
+      background:#ffffff;
+    }
+
+    .available-product-panel-title{
+      margin:0 0 16px;
+      font-size:17px;
+      color:#162744;
+    }
+
+    .available-product-list{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px 18px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+
+    .available-product-item{
+      position:relative;
+      padding-left:19px;
+      font-size:12px;
+      line-height:1.5;
+      color:#4f617c;
+    }
+
+    .available-product-item::before{
+      content:"✓";
+      position:absolute;
+      left:0;
+      top:0;
+      color:#6872a8;
+      font-weight:700;
+    }
+
+    .available-product-update{
+      margin:20px 0 0;
+      padding-top:16px;
+      border-top:1px solid #e6e8ef;
+      font-size:11px;
+      line-height:1.55;
+      color:#777e9c;
+    }
+
+    @media (max-width:900px){
+      .available-product-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:520px){
+      .available-product{
+        padding:26px 20px;
+        border-radius:16px;
+      }
+
+      .available-product-title{
+        font-size:27px;
+      }
+
+      .available-product-list{
+        grid-template-columns:1fr;
+      }
+
+      .available-product-button{
+        width:100%;
+      }
+    }
+
+
+    .device-section{
+      margin-top:28px;
+      padding:34px;
+      border:1px solid #dfe3ef;
+      border-radius:20px;
+      background:#ffffff;
+      box-shadow:0 10px 28px rgba(47,53,111,.06);
+      text-align:center;
+    }
+
+    .device-section-label{
+      display:inline-block;
+      margin-bottom:10px;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+      color:#747ca4;
+    }
+
+    .device-section-title{
+      margin:0;
+      font-size:30px;
+      line-height:1.2;
+      color:#162744;
+    }
+
+    .device-section-text{
+      max-width:720px;
+      margin:12px auto 0;
+      font-size:14px;
+      line-height:1.7;
+      color:#4f617c;
+    }
+
+    .device-list{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+      margin:26px auto 0;
+      padding:0;
+      list-style:none;
+    }
+
+    .device-item{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:40px;
+      padding:0 15px;
+      border:1px solid #dde2ec;
+      border-radius:999px;
+      background:linear-gradient(135deg, #ffffff 0%, #f7f8fc 100%);
+      color:#2f356f;
+      font-size:12px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .device-note{
+      max-width:760px;
+      margin:22px auto 0;
+      padding-top:18px;
+      border-top:1px solid #e6e8ef;
+      font-size:11px;
+      line-height:1.65;
+      color:#777e9c;
+    }
+
+    @media (max-width:520px){
+      .device-section{
+        padding:26px 20px;
+        border-radius:16px;
+      }
+
+      .device-section-title{
+        font-size:26px;
+      }
+
+      .device-list{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:9px;
+      }
+
+      .device-item{
+        min-height:42px;
+        padding:7px 10px;
+        white-space:normal;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:360px){
+      .device-list{
+        grid-template-columns:1fr;
+      }
+    }
+
+
+    .faq-section{
+      margin-top:28px;
+      padding:34px;
+      border:1px solid #dfe3ef;
+      border-radius:20px;
+      background:linear-gradient(135deg, #ffffff 0%, #f8f9fd 100%);
+      box-shadow:0 10px 28px rgba(47,53,111,.06);
+    }
+
+    .faq-header{
+      max-width:760px;
+      margin:0 auto 26px;
+      text-align:center;
+    }
+
+    .faq-label{
+      display:inline-block;
+      margin-bottom:10px;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+      color:#747ca4;
+    }
+
+    .faq-title{
+      margin:0;
+      font-size:30px;
+      line-height:1.2;
+      color:#162744;
+    }
+
+    .faq-intro{
+      margin:12px auto 0;
+      font-size:14px;
+      line-height:1.7;
+      color:#4f617c;
+    }
+
+    .faq-list{
+      display:grid;
+      gap:12px;
+      max-width:860px;
+      margin:0 auto;
+    }
+
+    .faq-item{
+      overflow:hidden;
+      border:1px solid #e1e4ed;
+      border-radius:14px;
+      background:#ffffff;
+    }
+
+    .faq-question{
+      position:relative;
+      padding:18px 52px 18px 20px;
+      color:#162744;
+      font-size:14px;
+      font-weight:700;
+      line-height:1.45;
+      cursor:pointer;
+      list-style:none;
+    }
+
+    .faq-question::-webkit-details-marker{
+      display:none;
+    }
+
+    .faq-question::after{
+      content:"+";
+      position:absolute;
+      top:50%;
+      right:20px;
+      transform:translateY(-50%);
+      color:#6872a8;
+      font-size:22px;
+      font-weight:400;
+    }
+
+    .faq-item[open] .faq-question::after{
+      content:"−";
+    }
+
+    .faq-answer{
+      padding:0 20px 18px;
+      border-top:1px solid #eef0f5;
+      color:#4f617c;
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    .faq-answer p{
+      margin:16px 0 0;
+    }
+
+    .faq-license-note{
+      margin-top:20px;
+      padding:16px 18px;
+      border:1px solid #e1e4ed;
+      border-radius:12px;
+      background:#ffffff;
+      color:#777e9c;
+      font-size:11px;
+      line-height:1.65;
+      text-align:center;
+    }
+
+    @media (max-width:520px){
+      .faq-section{
+        padding:26px 20px;
+        border-radius:16px;
+      }
+
+      .faq-title{
+        font-size:26px;
+      }
+
+      .faq-question{
+        padding:17px 46px 17px 17px;
+      }
+
+      .faq-question::after{
+        right:17px;
+      }
+
+      .faq-answer{
+        padding:0 17px 17px;
+      }
+    }
+
+
+    .language-switch{
+      width:100%;
+      max-width:1040px;
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      gap:8px;
+      margin:-12px auto 20px;
+      font-size:12px;
+      color:#8b90a6;
+    }
+
+    .language-link,
+    .language-link:visited{
+      min-width:34px;
+      padding:6px 9px;
+      border:1px solid #dde2ec;
+      border-radius:999px;
+      background:#ffffff;
+      color:#4f617c;
+      font-weight:700;
+      text-align:center;
+      text-decoration:none;
+    }
+
+    .language-link:hover{
+      border-color:#bbc4dc;
+      color:#2f356f;
+    }
+
+    .language-link.is-active,
+    .language-link.is-active:visited{
+      border-color:#2f356f;
+      background:#2f356f;
+      color:#ffffff;
+    }
+
+    @media (max-width:520px){
+      .language-switch{
+        justify-content:center;
+        margin:-6px auto 18px;
+      }
+    }
+
+
+    /* Slim sticky navigation bar */
+    .page{
+      padding-top:0;
+    }
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      width:100vw;
+      margin:0 0 24px calc(50% - 50vw);
+      padding:8px 24px;
+      background:rgba(255,255,255,.97);
+      border-bottom:1px solid rgba(47,53,111,.10);
+      box-shadow:0 5px 16px rgba(47,53,111,.06);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+
+    .site-header-inner{
+      width:100%;
+      max-width:1040px;
+      min-height:70px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .site-header .logo-link{
+      flex:0 0 auto;
+      width:190px;
+      max-width:48vw;
+      margin:0;
+    }
+
+    .site-header .logo{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    .site-header .language-switch{
+      flex:0 0 auto;
+      width:auto;
+      max-width:none;
+      margin:0;
+      justify-content:flex-end;
+    }
+
+    @media (max-width:520px){
+      .site-header{
+        margin-bottom:18px;
+        padding:7px 16px;
+      }
+
+      .site-header-inner{
+        min-height:58px;
+        gap:12px;
+      }
+
+      .site-header .logo-link{
+        width:155px;
+        max-width:56vw;
+      }
+
+      .site-header .language-switch{
+        gap:5px;
+        font-size:11px;
+      }
+
+      .site-header .language-link{
+        min-width:31px;
+        padding:5px 7px;
+      }
+    }
+
+  .product-title{overflow-wrap:anywhere;}
+    .product-fact-title{margin-top:0;}
+  /* Keep the inherited sticky bar within the viewport, including scrollbar width. */
+    .site-header{width:auto;margin-left:-24px;margin-right:-24px;}
+    @media(max-width:900px){.site-header{margin-left:-18px;margin-right:-18px;}}
+  .research-contact{grid-template-columns:minmax(0,1fr);}
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a class="logo-link" href="index.html" aria-label="Zur LioTil-Startseite">
+        <img src="assets/branding/liotil-logo-tight.png" class="logo" alt="LioTil Logo">
+      </a>
+
+        <nav class="language-switch" aria-label="Sprachauswahl">
+      <a
+        class="language-link is-active"
+        href="manufacturing-contact-de.html"
+        lang="de"
+        aria-current="page"
+      >DE</a>
+      <span aria-hidden="true">·</span>
+      <a
+        class="language-link"
+        href="manufacturing-contact.html"
+        lang="en"
+      >EN</a>
+    </nav>
+      </div>
+    </header>
+
+    <main class="product-main">
+      <section class="product-hero research-contact" aria-labelledby="contact-title">
+        <div class="product-copy">
+          <div class="product-label">Manufacturing Workflow Research</div>
+          <h1 class="product-title" id="contact-title">Projektkontakt</h1>
+          <p class="product-subtitle">Sprechen wir über Ihre Abläufe im Fertigungsbetrieb.</p>
+          <p class="product-text">Dieser Kontakt gilt ausschließlich für das Projekt Manufacturing Workflow Research. Wir suchen weltweit Designpartner in kleinen und mittelständischen Fertigungsunternehmen. Unsere ersten Kontakte konzentrieren sich auf die USA.</p>
+          <p class="product-text">Ein erstes Gespräch ist unverbindlich. Wir möchten Ihre täglichen Verwaltungsprobleme verstehen, bevor wir Software entwickeln; für diesen Anwendungsbereich gibt es derzeit kein fertiges Produkt.</p>
+          <div class="product-actions"><a class="product-button product-button-primary" href="mailto:partners@liotil.com">partners@liotil.com</a><a class="product-button product-button-secondary" href="manufacturing-research-de.html">Zurück zum Forschungsprojekt</a></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <a href="index.html">© 2026 LioTil</a> ·
+        <a href="imprint.html">Impressum</a> ·
+        <a href="privacy.html">Datenschutz</a> ·
+        <a href="guides.html">Anleitungen</a> ·
+        <a href="contact.html">Kontakt</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+
+</html>

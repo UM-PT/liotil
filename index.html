@@ -599,6 +599,61 @@ body{
   }
 }
 
+/* Manufacturing research: warm accents scoped to this card only. */
+.manufacturing-research-card{
+  min-height:210px;
+  margin-bottom:14px;
+  background:linear-gradient(135deg,#fffdf8 0%,#faf4e9 100%);
+  border-color:#eadcc5;
+  box-shadow:0 8px 22px rgba(109,77,35,.07);
+}
+.manufacturing-research-card::before{
+  background:linear-gradient(90deg,#c77b29,#e7b76f);
+}
+.manufacturing-research-card:hover{
+  border-color:#dcc39d;
+  box-shadow:0 12px 30px rgba(109,77,35,.12);
+}
+.manufacturing-research-card .eink-card-eyebrow{
+  padding:5px 9px;
+  border:1px solid #e8c994;
+  border-radius:999px;
+  background:#fff3df;
+  color:#95581d;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.12em;
+  margin-bottom:10px;
+}
+.manufacturing-research-card h2{
+  color:#493a2b;
+  font-weight:700;
+}
+.manufacturing-research-card .eink-card-meta-title{color:#8a6a44;}
+.manufacturing-research-card .eink-device{
+  border-color:#e8d9c1;
+  background:rgba(255,253,248,.9);
+  color:#796044;
+}
+.manufacturing-research-card .eink-card-link-primary,
+.manufacturing-research-card .eink-card-link-primary:visited{
+  background:#a96320;
+  border-color:#a96320;
+  color:#fff;
+}
+.manufacturing-research-card .eink-card-link-primary:hover{
+  background:#92541c;
+  border-color:#92541c;
+}
+.manufacturing-research-card .eink-card-link:focus-visible{
+  outline:3px solid rgba(169,99,32,.3);
+  outline-offset:3px;
+}
+@media(max-width:700px){
+  .manufacturing-research-card{margin-bottom:16px;}
+  .manufacturing-research-card .eink-card-meta{border-top-color:#e8d9c1;}
+}
+
 </style>
 
 </head>
@@ -618,6 +673,24 @@ body{
     
     
     <section class="featured-project">
+
+      <article class="featured-project-card eink-collection-card manufacturing-research-card" lang="en">
+        <div class="eink-card-layout">
+          <div class="eink-card-copy">
+            <div class="eink-card-eyebrow">New · Research Project</div>
+            <h2>Manufacturing Workflow Research</h2>
+            <p class="eink-card-description">Exploring practical software solutions for manufacturing businesses.</p>
+            <p class="eink-card-description-en">We're looking for design partners among small and medium-sized manufacturing businesses worldwide. Our initial outreach focuses on the United States. Let’s understand everyday administrative challenges before building software.</p>
+            <div class="eink-card-actions"><a class="eink-card-link eink-card-link-primary" href="manufacturing-research.html">Learn More →</a></div>
+          </div>
+          <div class="eink-card-meta">
+            <div class="eink-card-meta-title">Research with manufacturing businesses</div>
+            <div class="eink-device-list"><span class="eink-device">Research phase</span><span class="eink-device">Design partners welcome</span></div>
+            <p class="eink-card-description-en">RFQs · Technical drawings · Quotes &amp; orders · Quality documentation</p>
+          </div>
+        </div>
+      </article>
+
 
       <article
         class="featured-project-card eink-collection-card"
@@ -726,7 +799,6 @@ body{
 
 
     <div class="footer-note">
-      <div>Website under construction</div>
       <div class="footer-links"><a href="index.html">© 2026 LioTil</a> · <a href="imprint.html">Imprint</a> · <a href="privacy.html">Privacy</a> · <a href="guides.html">Guides</a> · <a href="contact.html">Contact</a> · <a href="version.html" class="footer-version-link">v0.028</a></div>
     </div>
   </div>
