@@ -654,6 +654,16 @@ body{
   .manufacturing-research-card .eink-card-meta{border-top-color:#e8d9c1;}
 }
 
+/* Document Desk Agent: isolated project styling. */
+.document-desk-card{min-height:260px;background:linear-gradient(135deg,#fbfefd,#eef7f5);border-color:#cfe2df;}
+.document-desk-card::before{background:linear-gradient(90deg,#286c68,#84b2aa);}
+.document-desk-card:hover{border-color:#99c2ba;box-shadow:0 12px 30px rgba(40,108,104,.12);}
+.document-desk-card h2{color:#235955;}
+.document-desk-card .eink-card-eyebrow{color:#397a74;}
+.document-desk-card .eink-card-link-primary{background:#286c68;border-color:#286c68;color:#fff;}
+.document-desk-card .eink-card-meta-title{color:#397a74;}
+.document-desk-card .eink-device{color:#315f5a;border-color:#cfe2df;white-space:normal;line-height:1.4;}
+@media(max-width:700px){.document-desk-card{min-height:0;}.document-desk-card .eink-card-meta{border-top-color:#cfe2df;}}
 </style>
 
 </head>
@@ -751,6 +761,23 @@ body{
               <span class="eink-card-benefit">Instant Download</span>
               <span class="eink-card-benefit">Free Updates</span>
             </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="featured-project-card eink-collection-card document-desk-card">
+        <div class="eink-card-layout">
+          <div class="eink-card-copy">
+            <div class="eink-card-eyebrow" lang="en">AI Development · Challenge Submission</div>
+            <h2>Document Desk Agent</h2>
+            <p class="eink-card-description" lang="en">An AI-assisted document workflow project that analyzes PDFs, identifies tasks and deadlines, and suggests document organization steps while keeping users in control of every action.</p>
+            <p class="eink-card-description-en" lang="de">Ein KI-gestütztes Projekt zur Dokumentenverarbeitung, das PDF-Dateien analysiert, Aufgaben und Fristen erkennt und Vorschläge zur Dokumentenorganisation erstellt. Alle Aktionen bleiben unter menschlicher Kontrolle.</p>
+            <div class="eink-card-actions"><a class="eink-card-link eink-card-link-primary" href="document-desk-agent-en.html" lang="en">Explore Project</a><a class="eink-card-link" href="document-desk-agent.html" lang="de">Projekt entdecken</a></div>
+          </div>
+          <div class="eink-card-meta">
+            <div class="eink-card-meta-title">Human-in-the-loop</div>
+            <div class="eink-device-list"><span class="eink-device">WebMCP</span><span class="eink-device">Document workflows</span><span class="eink-device">Human approval</span></div>
+            <p class="eink-card-description-en">Independent development · Experimental project<br>OpenAI WebMCP Challenge 2026</p>
           </div>
         </div>
       </article>
