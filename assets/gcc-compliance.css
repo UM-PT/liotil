@@ -64,3 +64,28 @@ footer { text-align: center; color: var(--muted); padding: 8px 0 24px; font-size
     .shell { width: calc(100% - 26px); }
     .tiles { grid-template-columns: 1fr; }
 }
+
+/* Product evidence and the synthetic next-action example. */
+.lead { font-weight: 700; }
+.contact-note { margin: 12px 0 0; font-size: .83rem; }
+.button { min-height: 44px; display: inline-flex; align-items: center; }
+.report-excerpt { margin: 0; min-width: 0; }
+.report-excerpt a, .report-excerpt img { display: block; }
+.report-excerpt img {
+    width: 100%; height: auto; border: 1px solid #365449; border-radius: 13px;
+    box-shadow: 0 10px 23px #17352e24;
+}
+.report-excerpt figcaption { margin-top: 10px; color: var(--muted); font-size: .8rem; line-height: 1.45; }
+.action-example { margin-top: 19px; }
+.action-example h2 { margin-top: 7px; }
+.action-example .recommended-action { margin: 13px 0; color: var(--accent); }
+.demo-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; margin: 0; }
+.demo-metrics div { padding: 11px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+.demo-metrics dt { color: var(--muted); font-size: .82rem; }
+.demo-metrics dd { margin: 4px 0 0; color: var(--accent); font-size: 1.25rem; font-weight: 700; }
+.trust-note { margin-bottom: 13px; }
+@media (max-width: 420px) {
+    .demo-metrics { grid-template-columns: 1fr; }
+    .demo-metrics div { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+    .demo-metrics dd { margin: 0; white-space: nowrap; }
+}
