@@ -654,6 +654,26 @@ body{
   .manufacturing-research-card .eink-card-meta{border-top-color:#e8d9c1;}
 }
 
+/* GCC Supplier Compliance Desk */
+.gcc-compliance-card{
+  cursor:default;
+  margin-bottom:14px;
+  background:linear-gradient(135deg,#f8fcfa,#eaf5ef);
+  border-color:#bdd8ce;
+}
+.gcc-compliance-card::before{background:linear-gradient(90deg,#0f5e54,#70a58a);}
+.gcc-compliance-card:hover{border-color:#a6cabd;box-shadow:0 12px 30px #274e421a;}
+.gcc-compliance-card .eink-card-eyebrow{
+  color:#205b4d;background:#e9f5ef;border:1px solid #aed0c1;
+  border-radius:999px;padding:5px 9px;margin-bottom:10px;
+}
+.gcc-compliance-card h2{color:#143f37;}
+.gcc-compliance-card .eink-card-meta-title{color:#205b4d;}
+.gcc-compliance-card .eink-device{color:#264c41;background:#fbfefc;border-color:#c6ded3;}
+.gcc-compliance-card .eink-card-link-primary,
+.gcc-compliance-card .eink-card-link-primary:visited{background:#155a4e;border-color:#155a4e;color:#fff;}
+.gcc-compliance-card .eink-card-link-primary:hover{background:#0d433a;border-color:#0d433a;}
+
 /* Document Desk Agent: isolated project styling. */
 .document-desk-card{min-height:260px;background:linear-gradient(135deg,#fbfefd,#eef7f5);border-color:#cfe2df;}
 .document-desk-card::before{background:linear-gradient(90deg,#286c68,#84b2aa);}
@@ -683,6 +703,23 @@ body{
     
     
     <section class="featured-project">
+
+      <article class="featured-project-card eink-collection-card gcc-compliance-card" lang="en">
+        <div class="eink-card-layout">
+          <div class="eink-card-copy">
+            <div class="eink-card-eyebrow">New · Product Preview</div>
+            <h2>GCC Supplier Compliance Desk</h2>
+            <p class="eink-card-description">Review supplier documents and spot gaps.</p>
+            <p class="eink-card-description-en">See which documents are valid, missing or close to expiry, and what to do next.</p>
+            <div class="eink-card-actions"><a class="eink-card-link eink-card-link-primary" href="gcc-supplier-compliance.html">Learn More →</a></div>
+          </div>
+          <div class="eink-card-meta">
+            <div class="eink-card-meta-title">Supplier document review</div>
+            <div class="eink-device-list"><span class="eink-device">PDF documents</span><span class="eink-device">Readiness Score</span><span class="eink-device">Executive Report</span></div>
+            <p class="eink-card-description-en">Explore a synthetic example of an independent readiness check for Saudi Aramco supplier registration.</p>
+          </div>
+        </div>
+      </article>
 
       <article class="featured-project-card eink-collection-card manufacturing-research-card" lang="en">
         <div class="eink-card-layout">
