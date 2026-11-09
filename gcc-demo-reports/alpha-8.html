@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Supplier Readiness Report</title>
+
+<style>
+
+:root {
+    --bg: #0b1220;
+    --panel: #121c2e;
+    --line: #263650;
+    --text: #eef4ff;
+    --muted: #9fb0c8;
+    --good: #2dd4a7;
+    --warn: #f3b84b;
+    --bad: #ff6b6b;
+    --accent: #6ea8fe;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.wrap {
+    max-width: 1050px;
+    margin: auto;
+    padding: 32px;
+}
+
+.company-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px;
+    margin-bottom: 26px;
+    border-radius: 16px;
+    box-shadow:
+        0 14px 30px rgba(0,0,0,0.26),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    background: linear-gradient(180deg, #14233a 0%, #101a2b 100%);
+    border: 1px solid #2f4a70;
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.logo-box {
+    width: 110px;
+    height: 86px;
+    flex: 0 0 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #ffffff 0%, #eef2f7 100%);
+    overflow: hidden;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.85),
+        0 8px 18px rgba(0,0,0,0.18);
+}
+
+.logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 8px;
+}
+
+.logo-placeholder {
+    font-size: 12px;
+    line-height: 1.2;
+    text-align: center;
+    max-width: 82px;
+    font-weight: bold;
+    color: #17253c;
+}
+
+.company-name {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.company-meta {
+    margin-top: 6px;
+    color: var(--muted);
+}
+
+h1 {
+    margin-bottom: 4px;
+}
+
+.sub {
+    color: var(--muted);
+    margin-bottom: 30px;
+}
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.card {
+    background: linear-gradient(180deg, #14233a 0%, #101a2b 100%);
+    border: 1px solid #2f4a70;
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.big {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.good {
+    color: var(--good);
+    font-weight: bold;
+}
+
+.warn {
+    color: var(--warn);
+    font-weight: bold;
+}
+
+.bad {
+    color: var(--bad);
+    font-weight: bold;
+}
+
+.best-action {
+    margin: 24px 0;
+    padding: 24px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #1b2d49 0%, #122038 55%, #0f1a2d 100%);
+    border: 1px solid #4d76aa;
+    box-shadow:
+        0 16px 36px rgba(0, 0, 0, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        inset 0 -10px 24px rgba(0, 0, 0, 0.10);
+}
+
+.best-label {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+}
+
+.best-title {
+    margin-top: 8px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.impact {
+    margin-top: 18px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.impact-item {
+    padding-right: 28px;
+    border-right: 1px solid var(--line);
+}
+
+.impact-item:last-child {
+    border-right: 0;
+}
+
+.impact-label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.impact-value {
+    margin-top: 4px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.arrow {
+    color: var(--accent);
+}
+
+.best-reason {
+    margin-top: 15px;
+    color: var(--muted);
+}
+
+.action-list {
+    margin-top: 24px;
+    background: linear-gradient(180deg, #14233a 0%, #101a2b 100%);
+    border: 1px solid #2f4a70;
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.action-list h2 {
+    margin-top: 0;
+}
+
+.action-row {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.action-row:last-child {
+    border-bottom: 0;
+}
+
+.action-number {
+    min-width: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #07111f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.action-title {
+    font-weight: bold;
+}
+
+.action-reason {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow:
+        0 12px 28px rgba(0,0,0,0.24),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    background: linear-gradient(180deg, #14233a 0%, #101a2b 100%);
+    border: 1px solid #2f4a70;
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    margin-top: 24px;
+}
+
+th, td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+
+th {
+    color: var(--muted);
+}
+
+footer {
+    margin-top: 32px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+@media(max-width:700px) {
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    .company-header {
+        align-items: flex-start;
+    }
+
+    .wrap {
+        padding: 18px;
+    }
+
+}
+
+
+
+/* =========================================================
+   LIOTIL PREMIUM GULF EXECUTIVE – V0.6
+   ========================================================= */
+
+body {
+    background:
+        radial-gradient(circle at 20% 0%, rgba(188,147,76,0.10) 0%, transparent 28%),
+        radial-gradient(circle at 85% 10%, rgba(214,184,120,0.08) 0%, transparent 24%),
+        linear-gradient(180deg, #07111e 0%, #091524 55%, #060d18 100%);
+}
+
+.wrap {
+    max-width: 1080px;
+    perspective: none;
+}
+
+.company-header,
+.card,
+.action-list,
+table {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(180deg,
+            rgba(17,30,47,0.98) 0%,
+            rgba(13,24,39,0.99) 100%);
+
+    border: 1px solid rgba(182,146,82,0.30);
+    border-bottom: 2px solid rgba(80,63,35,0.85);
+
+    box-shadow:
+        0 16px 34px rgba(0,0,0,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.company-header::before,
+.card::before,
+.action-list::before,
+table::before {
+    content: "";
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(214,184,120,0.70),
+        transparent
+    );
+}
+
+.company-header::after,
+.card::after,
+.action-list::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    width: 44px;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #7c6435, #d6b878, #7c6435);
+    opacity: 0.70;
+}
+
+.best-action {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(135deg,
+            rgba(31,47,72,0.98) 0%,
+            rgba(18,31,49,0.99) 42%,
+            rgba(11,22,36,1) 100%);
+
+    border: 1px solid rgba(214,184,120,0.52);
+    border-bottom: 3px solid rgba(92,71,36,0.92);
+
+    box-shadow:
+        0 22px 46px rgba(0,0,0,0.40),
+        inset 0 1px 0 rgba(255,255,255,0.07),
+        inset 0 -16px 28px rgba(0,0,0,0.10);
+}
+
+.best-action::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(
+        180deg,
+        #e2c98e 0%,
+        #b6914e 55%,
+        #7b5e2f 100%
+    );
+    box-shadow: 4px 0 20px rgba(214,184,120,0.18);
+}
+
+.best-action::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.035), transparent 24%);
+}
+
+.logo-box {
+    background: linear-gradient(180deg, #ffffff 0%, #f2f3f5 100%);
+    border: 1px solid rgba(214,214,214,0.85);
+
+    box-shadow:
+        0 10px 22px rgba(0,0,0,0.20),
+        inset 0 1px 0 rgba(255,255,255,0.85);
+}
+
+.logo-placeholder {
+    font-size: 12px;
+    line-height: 1.25;
+    text-align: center;
+    max-width: 82px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    color: #22324a;
+}
+
+.company-name {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+}
+
+.company-meta,
+.sub,
+.action-reason,
+.best-reason,
+th {
+    color: #aab9ce;
+}
+
+h1 {
+    font-size: 34px;
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+}
+
+.best-label {
+    color: #d6b878;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.best-title {
+    margin-top: 10px;
+    font-size: 30px;
+    line-height: 1.18;
+    font-weight: 700;
+}
+
+.impact-label {
+    color: #9fb0c7;
+    font-size: 13px;
+}
+
+.impact-value {
+    margin-top: 4px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.arrow {
+    color: #d6b878;
+}
+
+.good {
+    color: #22ddb0;
+    text-shadow: 0 0 12px rgba(34,221,176,0.08);
+}
+
+.warn {
+    color: #f2c66d;
+}
+
+.bad {
+    color: #ff7b7b;
+}
+
+.card .big {
+    text-shadow: 0 2px 10px rgba(0,0,0,0.18);
+}
+
+.action-list h2 {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.action-number {
+    border: 1px solid rgba(214,184,120,0.85);
+    color: #0b1524;
+
+    background:
+        linear-gradient(180deg,
+            #ecd7a7 0%,
+            #cfab64 58%,
+            #b18844 100%);
+
+    box-shadow:
+        0 6px 14px rgba(0,0,0,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.55);
+}
+
+.action-title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+table {
+    margin-top: 24px;
+}
+
+td {
+    color: #e8eef9;
+}
+
+tr:hover td {
+    background: rgba(214,184,120,0.03);
+}
+
+footer {
+    margin-top: 36px;
+    color: #95a7c0;
+    text-align: center;
+    font-size: 13px;
+}
+
+@media(max-width:700px) {
+    h1 {
+        font-size: 28px;
+    }
+}
+
+/* =========================================================
+   READINESS RING – V0.7
+   ========================================================= */
+
+.executive-readiness {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    gap: 30px;
+    align-items: center;
+
+    margin: 0 0 26px 0;
+    padding: 26px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(21,35,54,0.98) 0%,
+            rgba(13,25,40,0.99) 100%);
+
+    border: 1px solid rgba(214,184,120,0.42);
+    border-bottom: 2px solid rgba(95,74,39,0.88);
+    border-radius: 16px;
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,0.34),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.executive-readiness::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 24px;
+    bottom: 24px;
+    width: 4px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f1daa6 0%,
+            #c49a52 55%,
+            #755628 100%
+        );
+
+    box-shadow: 4px 0 16px rgba(214,184,120,0.14);
+}
+
+.ring-wrap {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin: auto;
+}
+
+.ring-wrap svg {
+    width: 200px;
+    height: 200px;
+    transform: rotate(-90deg);
+}
+
+.ring-bg {
+    fill: none;
+    stroke: rgba(255,255,255,0.08);
+    stroke-width: 12;
+}
+
+.ring-value {
+    fill: none;
+    stroke: url(#goldGradient);
+    stroke-width: 12;
+    stroke-linecap: round;
+
+    stroke-dasharray: 502.65;
+    stroke-dashoffset: calc(502.65 - (502.65 * var(--score) / 100));
+
+    filter: drop-shadow(0 0 8px rgba(214,184,120,0.20));
+}
+
+.ring-inner {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring-score {
+    font-size: 42px;
+    line-height: 1;
+    font-weight: 700;
+    color: #f1f4fa;
+}
+
+.ring-label {
+    margin-top: 7px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.4px;
+    color: #d6b878;
+}
+
+.executive-copy {
+    padding-right: 12px;
+}
+
+.executive-kicker {
+    color: #d6b878;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.executive-title {
+    margin-top: 8px;
+    font-size: 29px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.executive-text {
+    margin-top: 9px;
+    color: #aab9ce;
+    line-height: 1.55;
+}
+
+.projected-impact {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 18px;
+    padding: 10px 14px;
+
+    border: 1px solid rgba(214,184,120,0.28);
+    border-radius: 10px;
+
+    background: rgba(214,184,120,0.05);
+}
+
+.projected-impact .before {
+    color: #eef4ff;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.projected-impact .arrow {
+    color: #d6b878;
+    font-size: 21px;
+}
+
+.projected-impact .after {
+    color: #22ddb0;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.projected-caption {
+    margin-top: 7px;
+    color: #899bb4;
+    font-size: 12px;
+}
+
+@media(max-width:700px) {
+    .executive-readiness {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .executive-copy {
+        padding-right: 0;
+    }
+}
+
+
+/* =========================================================
+   EXECUTIVE META – V0.8
+   ========================================================= */
+
+.company-header {
+    justify-content: space-between;
+}
+
+.company-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.company-meta-panel {
+    min-width: 250px;
+    padding-left: 28px;
+    margin-left: 20px;
+
+    border-left: 1px solid rgba(214,184,120,0.24);
+
+    text-align: right;
+}
+
+.meta-confidential {
+    color: #d6b878;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.4px;
+}
+
+.meta-row {
+    margin-top: 8px;
+    color: #aab9ce;
+    font-size: 13px;
+}
+
+.meta-value {
+    color: #eef4ff;
+    font-weight: 600;
+}
+
+@media(max-width:800px) {
+
+    .company-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .company-meta-panel {
+        width: 100%;
+        min-width: 0;
+        padding-left: 0;
+        margin-left: 0;
+        padding-top: 16px;
+
+        border-left: 0;
+        border-top: 1px solid rgba(214,184,120,0.20);
+
+        text-align: left;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+<div style="padding:14px;margin-bottom:18px;border:1px solid #b6914e;border-radius:10px;color:#f1daa6">
+<strong>INTERACTIVE DEMO · SYNTHETIC DATA</strong>
+<p>This fixed example illustrates prototype checks. No buyer approval or endorsement.</p>
+<a href="../gcc-supplier-demo.html" style="color:#f1daa6">Back to the interactive demo</a></div>
+
+<div class="company-header">
+
+<div class="company-left">
+
+<div class="logo-box">
+<div class="logo-placeholder">DEMO SUPPLIER</div>
+</div>
+
+<div>
+<div class="company-name">SYNTHETIC ALPHA LLC</div>
+<div class="company-meta">
+Supplier Readiness Report
+</div>
+<div class="company-meta">
+CR Number: SYN-ALPHA-101
+</div>
+</div>
+
+</div>
+
+<div class="company-meta-panel">
+
+<div class="meta-confidential">
+SYNTHETIC EXAMPLE
+</div>
+
+<div class="meta-row">
+Report ID:
+<span class="meta-value">DEMO-ALPHA-8</span>
+</div>
+
+<div class="meta-row">
+Buyer Scope:
+<span class="meta-value">Saudi Aramco</span>
+</div>
+
+<div class="meta-row">
+Prepared for:
+<span class="meta-value">SYNTHETIC ALPHA LLC</span>
+</div>
+
+</div>
+
+</div>
+
+<h1>Saudi Aramco Supplier Readiness</h1>
+
+<div class="sub">
+Checked 2026-11-09
+</div>
+
+<div class="executive-readiness">
+
+<div class="ring-wrap" style="--score: 100;">
+
+<svg viewBox="0 0 200 200" aria-label="Readiness score">
+<defs>
+<linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#f1daa6"/>
+<stop offset="50%" stop-color="#d6b878"/>
+<stop offset="100%" stop-color="#9c773a"/>
+</linearGradient>
+</defs>
+
+<circle class="ring-bg" cx="100" cy="100" r="80"></circle>
+<circle class="ring-value" cx="100" cy="100" r="80"></circle>
+</svg>
+
+<div class="ring-inner">
+<div class="ring-score">100%</div>
+<div class="ring-label">READINESS</div>
+</div>
+
+</div>
+
+<div class="executive-copy">
+
+<div class="executive-kicker">
+Executive Readiness
+</div>
+
+<div class="executive-title">
+Your current supplier readiness at a glance
+</div>
+
+<div class="executive-text">
+All assessed document requirements are currently met in this readiness check.
+</div>
+
+</div>
+
+</div>
+
+<div class="summary">
+
+<div class="card">
+<div>Readiness Score</div>
+<div class="big">100%</div>
+</div>
+
+<div class="card">
+<div>Overall Status</div>
+<div class="big good">READY</div>
+</div>
+
+<div class="card">
+<div>Actions Required</div>
+<div class="big">0</div>
+</div>
+
+</div>
+
+<div class="best-action">
+
+<div class="best-label">
+Assessment Outcome
+</div>
+
+<div class="best-title">
+No action required
+</div>
+
+<div class="best-reason">
+All current requirements pass.
+</div>
+
+</div>
+
+<div class="summary">
+
+<div class="card">
+<div>Valid</div>
+<div class="big good">10</div>
+</div>
+
+<div class="card">
+<div>Expiring / Review</div>
+<div class="big warn">0</div>
+</div>
+
+<div class="card">
+<div>Missing / Expired</div>
+<div class="big bad">0</div>
+</div>
+
+</div>
+
+<table>
+
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Status</th>
+<th>Result</th>
+</tr>
+</thead>
+
+<tbody>
+
+        <tr>
+            <td>Commercial Registration</td>
+            <td class="good">VALID</td>
+            <td>Document valid and requirement fulfilled.</td>
+        </tr>
+        
+        <tr>
+            <td>Zakat Certificate</td>
+            <td class="good">VALID</td>
+            <td>Document valid and requirement fulfilled.</td>
+        </tr>
+        
+        <tr>
+            <td>VAT Certificate</td>
+            <td class="good">VALID</td>
+            <td>Document valid and requirement fulfilled.</td>
+        </tr>
+        
+        <tr>
+            <td>GOSI Certificate</td>
+            <td class="good">VALID</td>
+            <td>Document valid and requirement fulfilled.</td>
+        </tr>
+        
+        <tr>
+            <td>Chamber of Commerce Certificate</td>
+            <td class="good">VALID</td>
+            <td>Document valid and requirement fulfilled.</td>
+        </tr>
+        
+        <tr>
+            <td>Civil Defense Certificate</td>
+            <td class="good">VALID</td>
+            <td>Document valid and requirement fulfilled.</td>
+        </tr>
+        
+        <tr>
+            <td>Bank Letter</td>
+            <td class="good">VALID</td>
+            <td>Document valid and requirement fulfilled.</td>
+        </tr>
+        
+        <tr>
+            <td>Ownership Profile</td>
+            <td class="good">VALID</td>
+            <td>Document valid and requirement fulfilled.</td>
+        </tr>
+        
+        <tr>
+            <td>Authorized Signatory Letter</td>
+            <td class="good">VALID</td>
+            <td>Document valid and requirement fulfilled.</td>
+        </tr>
+        
+        <tr>
+            <td>Cybersecurity Compliance Certificate</td>
+            <td class="good">VALID</td>
+            <td>Document valid and requirement fulfilled.</td>
+        </tr>
+        
+</tbody>
+
+</table>
+
+<footer>
+Independent readiness check · Demo V0.1 · © 2026 LioTil.com
+</footer>
+
+</div>
+
+</body>
+</html>

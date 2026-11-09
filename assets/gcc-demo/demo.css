@@ -1,0 +1,17 @@
+[hidden]{display:none!important}
+.demo-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}.demo-heading h1{font-size:clamp(2rem,4vw,2.9rem)}.demo-heading a{color:var(--accent)}
+.demo-notice{padding:13px 16px;border:1px solid #bfd8ce;border-radius:10px;background:#f0f8f3;font-size:.88rem}
+.demo-controls{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:24px 0 12px}.demo-controls label{font-weight:700}
+select{max-width:100%;min-height:44px;padding:8px;border:1px solid #8da99d;border-radius:8px;background:#fff;color:#17352e;font:inherit}
+button{font:inherit;cursor:pointer}button:disabled{opacity:.5;cursor:default}
+.demo-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}
+.demo-stats>div{background:linear-gradient(130deg,#102536,#091924);color:#c0d0d6;padding:20px;border:1px solid #b39358;border-radius:13px}
+.demo-stats span{display:block;font-size:.86rem}.demo-stats strong{display:block;font-size:2.3rem;color:#ecd19b;margin-top:7px}
+.demo-action{padding:22px;border:1px solid #c4d9ce;border-radius:14px;background:#f3f9f5;margin-bottom:20px}.demo-action h2{margin-top:12px;font-size:1.3rem}.demo-action .button{margin:4px 6px 0 0}
+.demo-documents{border:1px solid var(--line);border-radius:14px;padding:22px}.demo-documents h2{font-size:1.35rem}
+.documents-list{list-style:none;padding:0;margin:12px 0}.documents-list li{border-top:1px solid var(--line);padding:12px 0;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.documents-list small{display:block;color:var(--muted);margin-top:4px;font-size:.78rem}
+.status{flex:none;font-size:.8rem;font-weight:700;padding:5px 9px;border-radius:6px}
+.status-VALID{background:#e5f4ed;color:#165940}.status-EXPIRED,.status-MISSING{background:#faecea;color:#8e2d25}.status-REVIEW,.status-EXPIRING{background:#fff4da;color:#735013}.status-pending{background:#f0f2f2;color:#52615c}
+.fine{font-size:.8rem}.demo-contact{margin-top:20px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}.demo-contact p{font-size:.85rem}
+@media(max-width:540px){.demo-stats{gap:6px}.demo-stats>div{padding:12px 9px}.demo-stats strong{font-size:1.8rem}.demo-stats span{font-size:.75rem}.demo-documents{padding:15px}.documents-list li{gap:8px;font-size:.9rem}.status{padding:5px;font-size:.72rem}.demo-controls select{width:100%}}
